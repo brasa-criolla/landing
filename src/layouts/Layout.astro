@@ -12,7 +12,7 @@ interface Props {
 
 const {
   title = `${RESTAURANT_INFO.name} — ${RESTAURANT_INFO.tagline} | La Plata, Huila`,
-  description = `${RESTAURANT_INFO.description} Ubicados en ${RESTAURANT_INFO.address}, ${RESTAURANT_INFO.city}. Teléfono: ${RESTAURANT_INFO.phoneDisplay}.`
+  description = RESTAURANT_INFO.description
 } = Astro.props;
 ---
 

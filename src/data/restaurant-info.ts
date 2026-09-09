@@ -38,7 +38,7 @@ export interface RestaurantInfo {
 export const RESTAURANT_INFO: RestaurantInfo = {
   name: "La Brasa Criolla",
   tagline: "Asadero & Restaurante",
-  description: "El auténtico sabor del asado al carbón, pollo dorado en su punto y recetas tradicionales de la cocina criolla preparadas al momento.",
+  description: "Asadero y restaurante en La Plata, Huila. Carnes al carbón, pollo dorado y comida criolla hecha al momento. Domicilios: (313) 359-3955 o pide online.",
   address: "Cra. 4 #6-64",
   neighborhood: "Barrio Páez",
   city: "La Plata",
