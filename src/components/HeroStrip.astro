@@ -1,0 +1,27 @@
+---
+import { RESTAURANT_INFO } from '../data/restaurant-info';
+---
+
+<!-- Scarcity Voltage Strip (Chipotle Foil-Band Inspired) -->
+<section class="bg-gradient-to-r from-[#976500] via-[#B68207] to-[#976500] text-[#FCF9EC] border-y border-[#451400]/20 py-3.5 px-4 overflow-hidden shadow-inner">
+  <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+    <div class="flex items-center gap-2">
+      <span class="bg-[#451400] text-[#FDDC32] text-xs font-extrabold uppercase px-2.5 py-1 rounded-[4px] tracking-wider flex-shrink-0">
+        Promesa Brasa Criolla
+      </span>
+      <p class="font-body text-xs sm:text-sm font-bold tracking-wide text-white drop-shadow-sm">
+        {RESTAURANT_INFO.qualityPromiseQuote}
+      </p>
+    </div>
+
+    <a 
+      href="#menu" 
+      class="inline-flex items-center gap-1.5 text-xs font-extrabold tracking-widest uppercase text-[#FCF9EC] hover:text-[#FDDC32] underline underline-offset-4 flex-shrink-0 transition-colors"
+    >
+      <span>Explorar Categorías</span>
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+      </svg>
+    </a>
+  </div>
+</section>

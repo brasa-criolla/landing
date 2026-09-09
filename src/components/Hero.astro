@@ -1,0 +1,87 @@
+---
+import { RESTAURANT_INFO } from '../data/restaurant-info';
+import { buildWhatsAppLink } from '../lib/format';
+
+const waHeroUrl = buildWhatsAppLink(
+  RESTAURANT_INFO.whatsapp, 
+  "¡Hola! Me gustaría hacer una reserva o pedir a domicilio desde la página web."
+);
+---
+
+<section id="inicio" class="relative min-h-[85vh] lg:min-h-[90vh] flex items-center justify-center bg-[#451400] text-white overflow-hidden">
+  <!-- Background Image with High-Impact Culinary Texture -->
+  <div class="absolute inset-0 z-0">
+    <img 
+      src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1920&q=85" 
+      alt="Asado al carbón en La Brasa Criolla" 
+      class="w-full h-full object-cover object-center opacity-40 transform scale-105 filter contrast-110"
+      loading="eager"
+    />
+    <!-- Deep Burnt-Umber Multilayer Gradient Overlay (Chipotle Signature Tone #451400) -->
+    <div class="absolute inset-0 bg-gradient-to-t from-[#451400] via-[#451400]/75 to-[#451400]/40"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-[#451400]/40 to-[#451400]"></div>
+  </div>
+
+  <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center flex flex-col items-center">
+    <!-- Scarcity Stamp / Tag -->
+    <div class="inline-flex items-center gap-2 bg-[#FDDC32] text-[#451400] px-3.5 py-1.5 rounded-[4px] font-bold text-xs sm:text-sm tracking-widest uppercase mb-6 shadow-sm">
+      <span class="inline-block w-2 h-2 rounded-full bg-[#C60101] animate-ping"></span>
+      <span>La Plata, Huila · Tradición Criolla</span>
+    </div>
+
+    <!-- Main Headline in Bebas Neue (Uppercase Block Display) -->
+    <h1 class="font-display text-5xl sm:text-7xl lg:text-8xl font-normal tracking-wide text-[#FCF9EC] uppercase leading-[0.95] mb-6 max-w-4xl text-balance">
+      El Auténtico Sabor del <span class="text-[#FDDC32] drop-shadow-sm">Asado al Carbón</span>
+    </h1>
+
+    <!-- Descriptive Subhead in Nunito -->
+    <p class="font-body text-base sm:text-xl lg:text-2xl text-[#D4CBC7] font-normal max-w-2xl mx-auto mb-10 leading-relaxed text-pretty">
+      Carnes jugosas a la brasa, pollo dorado al carbón y recetas típicas colombianas preparadas en el instante de su pedido.
+    </p>
+
+    <!-- CTAs with Chipotle 4px-Radius Geometry -->
+    <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+      <a 
+        href="#menu" 
+        class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#C60101] hover:bg-[#8F0000] text-white px-8 h-12 rounded-[4px] font-display text-xl tracking-wider uppercase transition-all shadow-lg active:scale-95 border border-[#8F0000]"
+      >
+        <span>Ver Toda la Carta</span>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </a>
+
+      <a 
+        href={waHeroUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-transparent hover:bg-[#FCF9EC]/10 text-[#FCF9EC] hover:text-[#FDDC32] px-7 h-12 rounded-[4px] font-display text-xl tracking-wider uppercase transition-all border border-[#FCF9EC]/40 hover:border-[#FDDC32]"
+      >
+        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+        </svg>
+        <span>Pedir a Domicilio</span>
+      </a>
+    </div>
+
+    <!-- Quick Highlights Bar -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 pt-10 border-t border-[#FCF9EC]/15 w-full text-left sm:text-center">
+      <div class="p-2">
+        <span class="block font-display text-2xl text-[#FDDC32] uppercase">100% Carbón</span>
+        <span class="text-xs text-[#D4CBC7] uppercase tracking-wider font-semibold">Leña & brasa natural</span>
+      </div>
+      <div class="p-2">
+        <span class="block font-display text-2xl text-[#FDDC32] uppercase">Hecho al Momento</span>
+        <span class="text-xs text-[#D4CBC7] uppercase tracking-wider font-semibold">Máxima frescura</span>
+      </div>
+      <div class="p-2">
+        <span class="block font-display text-2xl text-[#FDDC32] uppercase">Carta Completa</span>
+        <span class="text-xs text-[#D4CBC7] uppercase tracking-wider font-semibold">35+ platos típicos</span>
+      </div>
+      <div class="p-2">
+        <span class="block font-display text-2xl text-[#FDDC32] uppercase">Cra. 4 #6-64</span>
+        <span class="text-xs text-[#D4CBC7] uppercase tracking-wider font-semibold">La Plata, Huila</span>
+      </div>
+    </div>
+  </div>
+</section>

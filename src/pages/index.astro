@@ -1,11 +1,29 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Hero from '../components/Hero.astro';
+import HeroStrip from '../components/HeroStrip.astro';
+import FeaturedGrid from '../components/FeaturedGrid.astro';
+import MenuSection from '../components/MenuSection.astro';
+import QualityCard from '../components/QualityCard.astro';
+import ContactSection from '../components/ContactSection.astro';
 ---
 
 <Layout>
-	<Welcome />
+  <!-- Hero con impacto fotográfico gastronómico y botones de 4px radius -->
+  <Hero />
+
+  <!-- Franja de voltaje de escasez y promesa de calidad al momento -->
+  <HeroStrip />
+
+  <!-- Platos estrella / Especialidades en grid de 4 -->
+  <FeaturedGrid />
+
+  <!-- Menú completo con filtrado instantáneo por categorías -->
+  <MenuSection />
+
+  <!-- Sello de tradición artesanal y cocción a la leña -->
+  <QualityCard />
+
+  <!-- Ubicación física en La Plata Huila, horarios de servicio y mapa interactivo -->
+  <ContactSection />
 </Layout>

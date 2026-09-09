@@ -1,0 +1,112 @@
+---
+import type { Dish } from '../data/menu';
+import { formatCOP, buildWhatsAppLink } from '../lib/format';
+import { RESTAURANT_INFO } from '../data/restaurant-info';
+
+interface Props {
+  dish: Dish;
+}
+
+const { dish } = Astro.props;
+
+const orderMessage = `¡Hola La Brasa Criolla! Vengo de la página web y deseo ordenar: *${dish.name}* (${formatCOP(dish.price)}). ¿Tienen disponibilidad?`;
+const dishWaUrl = buildWhatsAppLink(RESTAURANT_INFO.whatsapp, orderMessage);
+
+// Fallback images based on dish category if none provided
+const fallbackImages: Record<string, string> = {
+  carnes: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80",
+  pollo: "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?auto=format&fit=crop&w=600&q=80",
+  pescado: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=600&q=80",
+  arroz: "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=600&q=80",
+  bebidas: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80"
+};
+
+const displayImage = dish.image || fallbackImages[dish.category] || fallbackImages.carnes;
+---
+
+<article 
+  class="group flex flex-col bg-white rounded-[4px] border border-[#D4CBC7] hover:border-[#451400] transition-all duration-200 overflow-hidden shadow-sm hover:shadow-md h-full"
+  data-category={dish.category}
+>
+  <!-- Card Image Container with Fixed Aspect Ratio -->
+  <div class="relative aspect-[16/10] sm:aspect-[4/3] w-full overflow-hidden bg-[#F4EFE0]">
+    <img 
+      src={displayImage} 
+      alt={dish.name}
+      loading="lazy"
+      class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
+    />
+
+    <!-- Badge if present -->
+    {dish.badge && (
+      <div class="absolute top-2.5 right-2.5 z-10">
+        <span class="inline-block bg-[#451400] text-[#FDDC32] text-[11px] font-extrabold uppercase px-2.5 py-1 rounded-[4px] shadow-sm tracking-wider border border-[#FDDC32]/30">
+          {dish.badge}
+        </span>
+      </div>
+    )}
+
+    <!-- Category Pill Bottom Left -->
+    <div class="absolute bottom-2.5 left-2.5 z-10">
+      <span class="inline-block bg-white/90 backdrop-blur-sm text-[#451400] text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-[4px] tracking-widest border border-[#D4CBC7]">
+        {dish.category}
+      </span>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="p-4 sm:p-5 flex flex-col flex-grow justify-between">
+    <div>
+      <div class="flex items-start justify-between gap-2 mb-1.5">
+        <h3 class="font-display text-2xl text-[#451400] uppercase tracking-wide leading-tight group-hover:text-[#C60101] transition-colors">
+          {dish.name}
+        </h3>
+      </div>
+
+      {dish.description && (
+        <p class="font-body text-xs text-[#786259] mb-3 line-clamp-2 leading-relaxed">
+          {dish.description}
+        </p>
+      )}
+
+      <!-- Accompaniments Chips (Chipotle style ingredients) -->
+      {dish.accompaniments && dish.accompaniments.length > 0 && (
+        <div class="mb-4">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-[#786259] block mb-1">
+            Incluye:
+          </span>
+          <div class="flex flex-wrap gap-1">
+            {dish.accompaniments.map((acc) => (
+              <span class="inline-block bg-[#FCF9EC] text-[#451400] text-[11px] font-semibold px-2 py-0.5 rounded-[4px] border border-[#D4CBC7]">
+                {acc}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+
+    <!-- Footer: Price & Compact Action Button -->
+    <div class="pt-3 border-t border-[#D4CBC7]/60 flex items-center justify-between gap-2 mt-auto">
+      <div>
+        <span class="block text-[10px] uppercase font-bold text-[#786259] tracking-wider">Precio</span>
+        <span class="font-body text-xl sm:text-2xl font-black text-[#C60101] tracking-tight">
+          {formatCOP(dish.price)}
+        </span>
+      </div>
+
+      <a 
+        href={dishWaUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center gap-1.5 bg-[#451400] hover:bg-[#C60101] text-white px-3.5 h-9 rounded-[4px] text-xs font-bold uppercase tracking-wider transition-colors border border-[#451400] active:scale-95 shadow-sm"
+        aria-label={`Pedir ${dish.name} por WhatsApp`}
+      >
+        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+        </svg>
+        <span>Pedir</span>
+      </a>
+    </div>
+  </div>
+</article>

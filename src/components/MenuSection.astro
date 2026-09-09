@@ -1,0 +1,120 @@
+---
+import { CATEGORIES, MENU_ITEMS } from '../data/menu';
+import DishCard from './DishCard.astro';
+---
+
+<section id="menu" class="py-16 sm:py-24 bg-[#FCF9EC]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span class="text-xs font-extrabold uppercase tracking-widest text-[#C60101] block mb-2">
+        Nuestra Carta Completa
+      </span>
+      <h2 class="font-display text-4xl sm:text-6xl text-[#451400] uppercase tracking-wide leading-none mb-4">
+        Explora los Sabores Criollos
+      </h2>
+      <p class="font-body text-sm sm:text-base text-[#786259]">
+        Selecciona una categoría para filtrar. Cada plato incluye acompañamientos tradicionales y se asa en el momento.
+      </p>
+    </div>
+
+    <!-- Chipotle-style Category Selector Tiles -->
+    <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-12" role="tablist" aria-label="Categorías del Menú">
+      <button 
+        type="button" 
+        data-filter="todos"
+        class="category-tab active-tab px-4 sm:px-6 h-11 rounded-[4px] font-display text-lg tracking-wider uppercase transition-all duration-200 border border-[#451400] bg-[#451400] text-white shadow-sm flex items-center gap-2 cursor-pointer focus:outline-none"
+      >
+        <span>🍽️ Todos ({MENU_ITEMS.length})</span>
+      </button>
+
+      {CATEGORIES.map((cat) => {
+        const count = MENU_ITEMS.filter((item) => item.category === cat.id).length;
+        return (
+          <button 
+            type="button" 
+            data-filter={cat.id}
+            class="category-tab px-4 sm:px-5 h-11 rounded-[4px] font-display text-lg tracking-wider uppercase transition-all duration-200 border border-[#D4CBC7] bg-white text-[#451400] hover:border-[#451400] hover:bg-[#F4EFE0] shadow-sm flex items-center gap-2 cursor-pointer focus:outline-none"
+          >
+            <span>{cat.icon}</span>
+            <span>{cat.name} ({count})</span>
+          </button>
+        );
+      })}
+    </div>
+
+    <!-- Active Filter Indicator & Item Count -->
+    <div class="flex items-center justify-between border-b border-[#D4CBC7] pb-4 mb-8">
+      <div class="flex items-center gap-2">
+        <span class="text-xs font-bold uppercase tracking-wider text-[#786259]">Mostrando:</span>
+        <span id="current-filter-label" class="font-display text-xl uppercase text-[#451400]">
+          Todos los platos
+        </span>
+      </div>
+      <span id="items-counter" class="text-xs font-extrabold uppercase tracking-wider text-[#C60101]">
+        {MENU_ITEMS.length} opciones disponibles
+      </span>
+    </div>
+
+    <!-- Dishes Grid -->
+    <div id="dishes-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {MENU_ITEMS.map((dish) => (
+        <div class="dish-item-wrapper" data-category={dish.category}>
+          <DishCard dish={dish} />
+        </div>
+      ))}
+    </div>
+
+    <!-- Note at the end of the menu -->
+    <div class="mt-16 text-center border-t border-[#D4CBC7] pt-8">
+      <p class="font-body text-xs sm:text-sm text-[#786259] italic">
+        * Todos los precios están expresados en Pesos Colombianos (COP) e incluyen los impuestos aplicables. 
+        Los acompañamientos pueden variar según disponibilidad del día.
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Fast client-side category filtering
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.category-tab');
+  const items = document.querySelectorAll<HTMLElement>('.dish-item-wrapper');
+  const label = document.getElementById('current-filter-label');
+  const counter = document.getElementById('items-counter');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const filter = tab.getAttribute('data-filter');
+      if (!filter) return;
+
+      // Update Tab Styles
+      tabs.forEach(t => {
+        t.classList.remove('bg-[#451400]', 'text-white', 'border-[#451400]');
+        t.classList.add('bg-white', 'text-[#451400]', 'border-[#D4CBC7]');
+      });
+      tab.classList.remove('bg-white', 'text-[#451400]', 'border-[#D4CBC7]');
+      tab.classList.add('bg-[#451400]', 'text-white', 'border-[#451400]');
+
+      let visibleCount = 0;
+
+      // Filter Items
+      items.forEach(item => {
+        const itemCategory = item.getAttribute('data-category');
+        if (filter === 'todos' || itemCategory === filter) {
+          item.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+
+      // Update Labels
+      if (label) {
+        label.textContent = filter === 'todos' ? 'Todos los platos' : tab.textContent?.trim().replace(/\(\d+\)/, '') || filter;
+      }
+      if (counter) {
+        counter.textContent = `${visibleCount} opciones disponibles`;
+      }
+    });
+  });
+</script>

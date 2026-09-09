@@ -1,0 +1,79 @@
+---
+import { RESTAURANT_INFO } from '../data/restaurant-info';
+---
+
+<section id="tradicion" class="py-16 sm:py-24 bg-[#F4EFE0] border-y border-[#451400]/15">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Catering Hero Panel Pattern (Burnt Umber #451400 + 12px Radius) -->
+    <div class="relative bg-[#451400] text-white rounded-[12px] p-8 sm:p-12 lg:p-16 overflow-hidden shadow-xl">
+      <!-- Background Grill Glow Effect -->
+      <div class="absolute -right-24 -bottom-24 w-96 h-96 bg-[#C60101]/25 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-24 -top-24 w-96 h-96 bg-[#FDDC32]/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <!-- Left Column: Story & Promise -->
+        <div class="lg:col-span-7">
+          <div class="inline-flex items-center gap-2 bg-[#FDDC32] text-[#451400] px-3 py-1 rounded-[4px] text-xs font-extrabold uppercase tracking-widest mb-6">
+            <span>Sello Artesanal</span>
+          </div>
+
+          <h2 class="font-display text-3xl sm:text-5xl lg:text-6xl uppercase tracking-wide leading-tight mb-6 text-[#FCF9EC]">
+            {RESTAURANT_INFO.qualityPromiseTitle}
+          </h2>
+
+          <div class="border-l-2 border-[#FDDC32] pl-4 sm:pl-6 my-6">
+            <p class="font-body text-base sm:text-lg text-[#D4CBC7] italic leading-relaxed">
+              "{RESTAURANT_INFO.qualityPromiseQuote}"
+            </p>
+          </div>
+
+          <p class="font-body text-sm sm:text-base text-[#D4CBC7] leading-relaxed mb-8">
+            En <strong>La Brasa Criolla</strong> entendemos la cocina como un ritual de paciencia, fuego vivo y sazón auténtica. Cada corte de res, pechuga parrillera y pollo entero recibe el calor de la brasa natural en el momento exacto en que usted nos visita en La Plata, Huila.
+          </p>
+
+          <!-- 3 Pillars Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t border-white/15">
+            <div>
+              <span class="font-display text-xl text-[#FDDC32] uppercase block">Fuego Natural</span>
+              <span class="text-xs text-[#D4CBC7] font-semibold">Leña y carbón vegetal sin aditivos químicos.</span>
+            </div>
+            <div>
+              <span class="font-display text-xl text-[#FDDC32] uppercase block">Campo Huilense</span>
+              <span class="text-xs text-[#D4CBC7] font-semibold">Verduras y carnes frescas seleccionadas a diario.</span>
+            </div>
+            <div>
+              <span class="font-display text-xl text-[#FDDC32] uppercase block">Tiempo Justo</span>
+              <span class="text-xs text-[#D4CBC7] font-semibold">Cocción lenta que sella los jugos y el sabor.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Visual Box with Highlight -->
+        <div class="lg:col-span-5 flex flex-col items-center justify-center">
+          <div class="w-full bg-[#381200] border border-white/20 rounded-[8px] p-6 sm:p-8 text-center shadow-lg">
+            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-[#C60101] text-white flex items-center justify-center font-display text-3xl shadow-inner border-2 border-[#FDDC32]">
+              🔥
+            </div>
+            <span class="font-display text-2xl text-[#FCF9EC] uppercase block mb-1">
+              ¿Deseas tu pedido listo al llegar?
+            </span>
+            <p class="font-body text-xs sm:text-sm text-[#D4CBC7] mb-6">
+              Escríbenos con anticipación por WhatsApp para tener tus platos recién salidos de la parrilla esperándote en mesa o para llevar.
+            </p>
+            <a 
+              href={`https://wa.me/${RESTAURANT_INFO.whatsapp}?text=Hola,%20quisiera%20hacer%20un%20pedido%20programado%20para%20recoger`} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="w-full inline-flex items-center justify-center gap-2 bg-[#FDDC32] hover:bg-[#D4B600] text-[#451400] h-11 px-6 rounded-[4px] font-display text-lg tracking-wider uppercase transition-all shadow-md active:scale-95 border border-[#B68207]"
+            >
+              <span>Programar Pedido</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

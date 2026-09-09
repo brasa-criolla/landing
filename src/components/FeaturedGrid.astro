@@ -1,0 +1,60 @@
+---
+import { MENU_ITEMS } from '../data/menu';
+import DishCard from './DishCard.astro';
+
+// Select the top 4 flagship dishes
+const featuredDishes = MENU_ITEMS.filter((dish) => dish.featured).slice(0, 4);
+---
+
+<section id="destacados" class="py-16 sm:py-24 bg-[#FCF9EC] border-b border-[#451400]/15">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+      <div>
+        <span class="text-xs font-extrabold uppercase tracking-widest text-[#C60101] block mb-2">
+          Orgullo de la Parrilla Huilense
+        </span>
+        <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl text-[#451400] uppercase tracking-wide leading-none">
+          Especialidades de la Casa
+        </h2>
+      </div>
+      <p class="font-body text-sm sm:text-base text-[#786259] max-w-md">
+        Los platos más pedidos por nuestros clientes en La Plata. Asados a fuego lento para extraer el auténtico aroma de la brasa.
+      </p>
+    </div>
+
+    <!-- 4-Up Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {featuredDishes.map((dish) => (
+        <DishCard dish={dish} />
+      ))}
+    </div>
+
+    <!-- Callout Banner Below Grid -->
+    <div class="mt-12 p-6 bg-[#F4EFE0] rounded-[4px] border border-[#D4CBC7] flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-[4px] bg-[#451400] text-[#FDDC32] flex items-center justify-center font-display text-2xl flex-shrink-0">
+          ★
+        </div>
+        <div>
+          <h4 class="font-display text-xl text-[#451400] uppercase tracking-wide">
+            ¿Vienes en familia o grupo?
+          </h4>
+          <p class="font-body text-xs sm:text-sm text-[#786259]">
+            Nuestra Picada Mixta y el Pollo Entero son ideales para compartir entre 3 a 5 personas.
+          </p>
+        </div>
+      </div>
+
+      <a 
+        href="#menu" 
+        class="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-[#451400] hover:text-[#C60101] transition-colors border-b-2 border-[#451400] pb-0.5"
+      >
+        <span>Ver los 35+ platos de la carta</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
