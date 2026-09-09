@@ -1,1 +1,95 @@
 @import "tailwindcss";
+
+@theme {
+  --font-display: "Bebas Neue", "Helvetica Neue", sans-serif;
+  --font-body: "Nunito", "Helvetica Neue", sans-serif;
+
+  /* Chipotle & Brasa Criolla Chromatic Budget */
+  --color-ink: #451400;
+  --color-ink-soft: #6b321b;
+  --color-ash: #786259;
+  --color-hairline: #d4cbc7;
+  --color-bg-cream: #fcf9ec;
+  --color-cream-muted: #f4efe0;
+
+  --color-brand-red: #c60101;
+  --color-brand-red-dark: #8f0000;
+  --color-brand-gold: #fddc32;
+  --color-brand-gold-deep: #b68207;
+  --color-brand-green: #027d25;
+  --color-brand-green-dark: #075c20;
+  --color-brand-orange: #b6370d;
+
+  --radius-sm: 4px;
+  --radius-md: 12px;
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-body);
+  background-color: #fcf9ec;
+  color: #451400;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar matching burnt-umber foil palette */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f4efe0;
+}
+::-webkit-scrollbar-thumb {
+  background: #786259;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #451400;
+}
+
+/* Text selection */
+::selection {
+  background-color: #451400;
+  color: #ffffff;
+}
+
+/* Chipotle-inspired hairline border and button utilities */
+.border-hairline {
+  border-color: #d4cbc7;
+}
+
+.border-ink-hairline {
+  border-color: rgba(69, 20, 0, 0.18);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+/* Micro-pulso suave para CTA de WhatsApp */
+@keyframes soft-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 14px rgba(2, 125, 37, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(2, 125, 37, 0.6);
+  }
+}
+
+.pulse-whatsapp {
+  animation: soft-pulse 3s infinite ease-in-out;
+}
