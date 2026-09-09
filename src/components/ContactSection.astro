@@ -34,13 +34,45 @@ import { RESTAURANT_INFO } from '../data/restaurant-info';
           <div class="space-y-4 font-body text-sm text-[#451400]">
             <div>
               <span class="text-xs font-bold uppercase tracking-wider text-[#786259] block">Punto Físico:</span>
-              <p class="text-base font-bold text-[#171717]">{RESTAURANT_INFO.address}</p>
-              <p class="text-xs text-[#786259]">{RESTAURANT_INFO.city}, {RESTAURANT_INFO.department} - Colombia</p>
+              <p class="text-base font-bold text-[#171717]">{RESTAURANT_INFO.address}, {RESTAURANT_INFO.neighborhood}</p>
+              <p class="text-xs text-[#786259]">{RESTAURANT_INFO.city}, {RESTAURANT_INFO.department} · Colombia</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-[#786259] block">Celular / WhatsApp:</span>
+                <a href={`https://wa.me/${RESTAURANT_INFO.whatsapp}`} class="text-base font-bold text-[#C60101] hover:underline">
+                  {RESTAURANT_INFO.phoneDisplay}
+                </a>
+              </div>
+              <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-[#786259] block">Teléfono Fijo:</span>
+                <a href="tel:6088371470" class="text-base font-bold text-[#451400] hover:underline">
+                  {RESTAURANT_INFO.phoneLandline}
+                </a>
+              </div>
             </div>
 
             <div>
-              <span class="text-xs font-bold uppercase tracking-wider text-[#786259] block">Teléfono / WhatsApp:</span>
-              <p class="text-base font-bold text-[#C60101]">{RESTAURANT_INFO.phoneDisplay}</p>
+              <span class="text-xs font-bold uppercase tracking-wider text-[#786259] block">Correo Electrónico:</span>
+              <a href={`mailto:${RESTAURANT_INFO.email}`} class="text-sm font-semibold text-[#451400] hover:text-[#C60101]">
+                {RESTAURANT_INFO.email}
+              </a>
+            </div>
+
+            <div class="pt-2 border-t border-[#D4CBC7]/40">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#786259] block mb-1.5">Medios de Pago Aceptados:</span>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="inline-flex items-center gap-1 bg-[#FCF9EC] border border-[#D4CBC7] px-2 py-0.5 rounded-[4px] text-[11px] font-bold text-[#451400]">
+                  💵 Efectivo
+                </span>
+                <span class="inline-flex items-center gap-1 bg-[#FCF9EC] border border-[#D4CBC7] px-2 py-0.5 rounded-[4px] text-[11px] font-bold text-[#451400]">
+                  💳 Tarjetas Débito / Crédito
+                </span>
+                <span class="inline-flex items-center gap-1 bg-[#FCF9EC] border border-[#D4CBC7] px-2 py-0.5 rounded-[4px] text-[11px] font-bold text-[#451400]">
+                  📲 Nequi / Bancolombia / Daviplata
+                </span>
+              </div>
             </div>
 
             <div class="pt-2">
@@ -53,7 +85,7 @@ import { RESTAURANT_INFO } from '../data/restaurant-info';
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
                 </svg>
-                <span>Abrir en Google Maps</span>
+                <span>Cómo Llegar en Google Maps</span>
               </a>
             </div>
           </div>

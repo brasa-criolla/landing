@@ -21,22 +21,30 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Official Favicons generated from round logo -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
 
     <!-- Primary SEO Meta Tags -->
     <title>{title}</title>
+    <link rel="canonical" href="https://brasacriolla.com/" />
     <meta name="title" content={title} />
     <meta name="description" content={description} />
-    <meta name="keywords" content="asadero la plata huila, restaurante la plata huila, pollo asado huila, carnes al carbon, comida tipica huila, picada mixta, la brasa criolla" />
+    <meta name="keywords" content="asadero la plata huila, restaurante la plata huila, pollo asado huila, carnes al carbon, comida tipica huila, picada mixta, la brasa criolla, barrio paez la plata" />
     <meta name="author" content="La Brasa Criolla" />
     <meta name="theme-color" content="#451400" />
 
-    <!-- Open Graph / Facebook / WhatsApp -->
+    <!-- Open Graph / Facebook / WhatsApp (Rich Social Card) -->
     <meta property="og:type" content="restaurant" />
     <meta property="og:url" content="https://brasacriolla.com/" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://brasacriolla.com/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="es_CO" />
     <meta property="og:site_name" content={RESTAURANT_INFO.name} />
 
@@ -44,6 +52,58 @@ const {
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content="https://brasacriolla.com/og-image.jpg" />
+
+    <!-- Structured Data (Schema.org / JSON-LD) for Local SEO & Google Maps -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": RESTAURANT_INFO.name,
+      "alternateName": "Restaurante y Asadero La Brasa Criolla",
+      "image": "https://brasacriolla.com/og-image.jpg",
+      "description": RESTAURANT_INFO.description,
+      "servesCuisine": ["Colombiana", "Asados al Carbón", "Pollo Asado", "Pescados"],
+      "priceRange": "$$",
+      "currenciesAccepted": "COP",
+      "paymentAccepted": "Cash, Credit Card, Debit Card, Nequi, Daviplata, Bancolombia",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": `${RESTAURANT_INFO.address}, ${RESTAURANT_INFO.neighborhood}`,
+        "addressLocality": RESTAURANT_INFO.city,
+        "addressRegion": RESTAURANT_INFO.department,
+        "postalCode": "415060",
+        "addressCountry": "CO"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 2.3907,
+        "longitude": -75.8927
+      },
+      "url": "https://brasacriolla.com/",
+      "telephone": [RESTAURANT_INFO.phone, "+576088371470"],
+      "email": RESTAURANT_INFO.email,
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday"],
+          "opens": "11:30",
+          "closes": "19:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "09:00",
+          "closes": "19:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Saturday", "Sunday"],
+          "opens": "08:30",
+          "closes": "21:00"
+        }
+      ],
+      "sameAs": RESTAURANT_INFO.socialLinks.map(s => s.url)
+    })} />
 
     <!-- Google Fonts Preconnect & Loading: Bebas Neue + Nunito -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
