@@ -34,6 +34,7 @@ const displayImage = dish.image || fallbackImages[dish.category] || fallbackImag
       src={displayImage} 
       alt={`${dish.name} — La Brasa Criolla (La Plata, Huila)`}
       loading="lazy"
+      decoding="async"
       class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
     />
 

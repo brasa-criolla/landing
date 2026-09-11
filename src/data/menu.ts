@@ -38,7 +38,7 @@ export const MENU_ITEMS: Dish[] = [
     description: "Nuestra picada reina de la casa para compartir: abundante combinación de carnes al carbón y crocantes patacones.",
     featured: true,
     badge: "Para Compartir",
-    image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80"
+    image: "/images/dishes/picada-mixta.jpg",
   },
   {
     id: "churrasco",
@@ -49,10 +49,11 @@ export const MENU_ITEMS: Dish[] = [
     description: "Corte grueso y jugoso asado a fuego vivo de carbón vegetal, sellado a la perfección con sal parrillera.",
     featured: true,
     badge: "Corte Estrella",
-    image: "https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=800&q=80"
+    image: "/images/dishes/churrasco.jpg",
   },
   {
     id: "carne-res-asada",
+    image: "/images/dishes/carne-res-asada.jpg",
     name: "Carne de Res Asada",
     category: "carnes",
     price: 33000,
@@ -61,6 +62,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "carne-bistek",
+    image: "/images/dishes/carne-bistek.jpg",
     name: "Carne en Bistek",
     category: "carnes",
     price: 33000,
@@ -69,6 +71,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "bistek-a-caballo",
+    image: "/images/dishes/bistek-a-caballo.jpg",
     name: "Bistek a Caballo",
     category: "carnes",
     price: 34000,
@@ -77,6 +80,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "chuleta-cerdo",
+    image: "/images/dishes/chuleta-cerdo.jpg",
     name: "Chuleta de Cerdo Dorada",
     category: "carnes",
     price: 36000,
@@ -85,6 +89,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "carne-cerdo-asada",
+    image: "/images/dishes/carne-cerdo-asada.jpg",
     name: "Carne de Cerdo Asada",
     category: "carnes",
     price: 36000,
@@ -93,6 +98,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "chatoriana",
+    image: "/images/dishes/chatoriana.jpg",
     name: "Chatoriana de Cerdo",
     category: "carnes",
     price: 37000,
@@ -101,6 +107,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "lomo-pina",
+    image: "/images/dishes/lomo-pina.jpg",
     name: "Lomo de Cerdo a la Piña",
     category: "carnes",
     price: 37000,
@@ -109,6 +116,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "lomo-naranja",
+    image: "/images/dishes/lomo-naranja.jpg",
     name: "Lomo a la Naranja",
     category: "carnes",
     price: 37000,
@@ -124,10 +132,11 @@ export const MENU_ITEMS: Dish[] = [
     description: "Costillar suave y jugoso caramelizado a fuego lento con salsa barbacoa artesanal.",
     featured: true,
     badge: "Recomendado",
-    image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80"
+    image: "/images/dishes/costilla-bbq.jpg",
   },
   {
     id: "costilla-ahumada",
+    image: "/images/dishes/costilla-ahumada.jpg",
     name: "Costilla de Cerdo Ahumada",
     category: "carnes",
     price: 36000,
@@ -136,6 +145,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "higado-asado",
+    image: "/images/dishes/higado-asado.jpg",
     name: "Hígado Asado al Carbón",
     category: "carnes",
     price: 25000,
@@ -144,6 +154,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "higado-bistek",
+    image: "/images/dishes/higado-bistek.jpg",
     name: "Hígado en Bistek",
     category: "carnes",
     price: 25000,
@@ -161,10 +172,11 @@ export const MENU_ITEMS: Dish[] = [
     description: "Nuestra insignia desde el primer día: pollo marinado en receta secreta de 24 horas y dorado lentamente sobre carbón encendido.",
     featured: true,
     badge: "Insignia de la Casa",
-    image: "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?auto=format&fit=crop&w=800&q=80"
+    image: "/images/dishes/pollo-entero-asado.jpg",
   },
   {
     id: "medio-pollo-asado",
+    image: "/images/dishes/medio-pollo-asado.jpg",
     name: "Medio Pollo Asado al Carbón",
     category: "pollo",
     price: 18000,
@@ -173,6 +185,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "cuarto-pollo-asado",
+    image: "/images/dishes/cuarto-pollo-asado.jpg",
     name: "Cuarto de Pollo Asado",
     category: "pollo",
     price: 10000,
@@ -181,6 +194,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "bandeja-pollo-asado",
+    image: "/images/dishes/bandeja-pollo-asado.jpg",
     name: "Bandeja Completa Pollo Asado",
     category: "pollo",
     price: 17000,
@@ -189,6 +203,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "pollo-entero-broaster",
+    image: "/images/dishes/pollo-entero-broaster.jpg",
     name: "Pollo Entero Broaster",
     category: "pollo",
     price: 37000,
@@ -197,6 +212,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "medio-pollo-broaster",
+    image: "/images/dishes/medio-pollo-broaster.jpg",
     name: "Medio Pollo Broaster",
     category: "pollo",
     price: 20000,
@@ -205,6 +221,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "cuarto-pollo-broaster",
+    image: "/images/dishes/cuarto-pollo-broaster.jpg",
     name: "Cuarto de Pollo Broaster",
     category: "pollo",
     price: 12000,
@@ -213,6 +230,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "bandeja-pollo-broaster",
+    image: "/images/dishes/bandeja-pollo-broaster.jpg",
     name: "Bandeja con Pollo Broaster",
     category: "pollo",
     price: 19000,
@@ -221,6 +239,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "chuleta-pollo",
+    image: "/images/dishes/chuleta-pollo.jpg",
     name: "Chuleta de Pollo Apanada",
     category: "pollo",
     price: 36000,
@@ -229,6 +248,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "pechuga-marinera",
+    image: "/images/dishes/pechuga-marinera.jpg",
     name: "Pechuga a la Marinera",
     category: "pollo",
     price: 44000,
@@ -237,6 +257,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "pechuga-champinones",
+    image: "/images/dishes/pechuga-champinones.jpg",
     name: "Pechuga con Champiñones",
     category: "pollo",
     price: 37000,
@@ -245,6 +266,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "pechuga-plancha",
+    image: "/images/dishes/pechuga-plancha.jpg",
     name: "Pechuga a la Plancha",
     category: "pollo",
     price: 36000,
@@ -253,6 +275,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "pechuga-ranchera",
+    image: "/images/dishes/pechuga-ranchera.jpg",
     name: "Pechuga Ranchera Gratinada",
     category: "pollo",
     price: 38000,
@@ -261,6 +284,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "pechuga-naranja",
+    image: "/images/dishes/pechuga-naranja.jpg",
     name: "Pechuga a la Naranja",
     category: "pollo",
     price: 37000,
@@ -269,6 +293,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "pechuga-pina",
+    image: "/images/dishes/pechuga-pina.jpg",
     name: "Pechuga a la Piña",
     category: "pollo",
     price: 37000,
@@ -277,6 +302,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "pollo-bechamel",
+    image: "/images/dishes/pollo-bechamel.jpg",
     name: "Pollo en Salsa Bechamel",
     category: "pollo",
     price: 37000,
@@ -285,6 +311,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "sopa-menudencia",
+    image: "/images/dishes/sopa-menudencia.jpg",
     name: "Sopa de Menudencia Criolla",
     category: "pollo",
     price: 7000,
@@ -302,10 +329,11 @@ export const MENU_ITEMS: Dish[] = [
     description: "Mojarra entera seleccionada, frita al punto exacto con piel crujiente y carne blanca suave.",
     featured: true,
     badge: "Típico del Huila",
-    image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=800&q=80"
+    image: "/images/dishes/mojarra-frita.jpg",
   },
   {
     id: "bagre-salsa",
+    image: "/images/dishes/bagre-salsa.jpg",
     name: "Bagre en Salsa Criolla",
     category: "pescado",
     price: 41000,
@@ -315,6 +343,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "bagre-frito",
+    image: "/images/dishes/bagre-frito.jpg",
     name: "Bagre Frito Crocante",
     category: "pescado",
     price: 41000,
@@ -323,6 +352,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "trucha-frita",
+    image: "/images/dishes/trucha-frita.jpg",
     name: "Trucha Frita Campesina",
     category: "pescado",
     price: 41000,
@@ -331,6 +361,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "trucha-marinera",
+    image: "/images/dishes/trucha-marinera.jpg",
     name: "Trucha a la Marinera",
     category: "pescado",
     price: 48000,
@@ -341,6 +372,7 @@ export const MENU_ITEMS: Dish[] = [
   // --- ARROZ ---
   {
     id: "arroz-pollo",
+    image: "/images/dishes/arroz-pollo.jpg",
     name: "Arroz con Pollo Criollo",
     category: "arroz",
     price: 28000,
@@ -349,6 +381,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "arroz-camarones",
+    image: "/images/dishes/arroz-camarones.jpg",
     name: "Arroz con Camarones",
     category: "arroz",
     price: 31000,
@@ -357,6 +390,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "arroz-chino",
+    image: "/images/dishes/arroz-chino.jpg",
     name: "Arroz Especial Estilo Chino",
     category: "arroz",
     price: 40000,
@@ -367,6 +401,7 @@ export const MENU_ITEMS: Dish[] = [
   // --- BEBIDAS ---
   {
     id: "limonada-panela",
+    image: "/images/dishes/limonada-panela.jpg",
     name: "Limonada de Panela Campesina",
     category: "bebidas",
     price: 4000,
@@ -375,6 +410,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "limonada-natural",
+    image: "/images/dishes/limonada-natural.jpg",
     name: "Limonada Natural Helada",
     category: "bebidas",
     price: 4000,
@@ -383,6 +419,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "jugo-naranja",
+    image: "/images/dishes/jugo-naranja.jpg",
     name: "Jugo de Naranja 100% Natural",
     category: "bebidas",
     price: 4000,
@@ -391,6 +428,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "gaseosa-personal",
+    image: "/images/dishes/gaseosa-personal.jpg",
     name: "Gaseosa Personal",
     category: "bebidas",
     price: 5000,
@@ -399,6 +437,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "gaseosa-15l",
+    image: "/images/dishes/gaseosa-15l.jpg",
     name: "Gaseosa Familiar 1.5 Litros",
     category: "bebidas",
     price: 8000,
@@ -407,6 +446,7 @@ export const MENU_ITEMS: Dish[] = [
   },
   {
     id: "jugo-hit-1l",
+    image: "/images/dishes/jugo-hit-1l.jpg",
     name: "Jugo Hit 1 Litro",
     category: "bebidas",
     price: 6000,
