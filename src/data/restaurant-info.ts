@@ -8,11 +8,14 @@ export interface RestaurantInfo {
   tagline: string;
   description: string;
   address: string;
+  neighborhood: string;
   city: string;
   department: string;
   country: string;
   phone: string;
   phoneDisplay: string;
+  phoneLandline: string;
+  email: string;
   whatsapp: string;
   whatsappDisplay: string;
   whatsappDefaultMessage: string;
@@ -20,6 +23,10 @@ export interface RestaurantInfo {
   googleMapsDirectionsUrl: string;
   qualityPromiseTitle: string;
   qualityPromiseQuote: string;
+  foundedYear: number;
+  founders: string;
+  motto: string;
+  paymentMethods: string[];
   schedule: ScheduleItem[];
   socialLinks: {
     name: string;
@@ -31,13 +38,16 @@ export interface RestaurantInfo {
 export const RESTAURANT_INFO: RestaurantInfo = {
   name: "La Brasa Criolla",
   tagline: "Asadero & Restaurante",
-  description: "El auténtico sabor del asado al carbón, pollo dorado en su punto y recetas tradicionales de la cocina criolla preparadas al momento.",
+  description: "Asadero y restaurante en La Plata, Huila. Carnes al carbón, pollo dorado y comida criolla hecha al momento. Domicilios: (313) 359-3955 o pide online.",
   address: "Cra. 4 #6-64",
+  neighborhood: "Barrio Páez",
   city: "La Plata",
   department: "Huila",
   country: "Colombia",
   phone: "+573133593955",
   phoneDisplay: "(313) 359-3955",
+  phoneLandline: "(608) 837-1470",
+  email: "brasacriolla@gmail.com",
   whatsapp: "573133593955",
   whatsappDisplay: "313 359 3955",
   whatsappDefaultMessage: "¡Hola La Brasa Criolla! Vengo de su página web y me gustaría consultar disponibilidad y hacer un pedido.",
@@ -45,6 +55,14 @@ export const RESTAURANT_INFO: RestaurantInfo = {
   googleMapsDirectionsUrl: "https://www.google.com/maps/search/?api=1&query=La+Brasa+Criolla,+Carrera+4+%23+6-64,+La+Plata,+Huila,+Colombia",
   qualityPromiseTitle: "ELABORADO AL INSTANTE CON VERDADERA LEÑA Y CARBÓN",
   qualityPromiseQuote: "Debido a que nuestros platos son elaborados en el momento en que usted los ordena, requerimos del tiempo necesario para garantizarle su frescura y auténtica calidad.",
+  foundedYear: 1990,
+  founders: "Familia Luengas Rueda (Elsa María Rueda Rueda & Rubén Luengas Rueda)",
+  motto: "¡En La Plata no hay forasteros, todos somos plateños!",
+  paymentMethods: [
+    "Efectivo",
+    "Tarjetas de Crédito y Débito",
+    "Transferencias (Nequi / Daviplata / Bancolombia)"
+  ],
   schedule: [
     { days: "Lunes", hours: "11:30 a.m. – 7:00 p.m." },
     { days: "Martes a Viernes", hours: "9:00 a.m. – 7:00 p.m." },
@@ -53,7 +71,7 @@ export const RESTAURANT_INFO: RestaurantInfo = {
   ],
   socialLinks: [
     { name: "WhatsApp", url: "https://wa.me/573133593955", icon: "whatsapp" },
-    { name: "Facebook", url: "https://facebook.com", icon: "facebook" },
-    { name: "Instagram", url: "https://instagram.com", icon: "instagram" }
+    { name: "Instagram", url: "https://www.instagram.com/restaurantelabrasacri0lla/", icon: "instagram" },
+    { name: "Facebook", url: "https://www.facebook.com/Restaurantelabrasacriollalaplata/", icon: "facebook" }
   ]
 };

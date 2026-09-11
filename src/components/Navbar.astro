@@ -1,7 +1,7 @@
 ---
 import { RESTAURANT_INFO } from '../data/restaurant-info';
 import { buildWhatsAppLink } from '../lib/format';
-import logoImg from '../assets/brasa-criolla-logo-artguru.png';
+import logoImg from '../assets/logo-oficial.png';
 import { Image } from 'astro:assets';
 
 const waUrl = buildWhatsAppLink(RESTAURANT_INFO.whatsapp, RESTAURANT_INFO.whatsappDefaultMessage);
@@ -9,26 +9,15 @@ const waUrl = buildWhatsAppLink(RESTAURANT_INFO.whatsapp, RESTAURANT_INFO.whatsa
 
 <header id="main-header" class="sticky top-0 z-50 w-full transition-all duration-300 bg-[#FCF9EC]/95 backdrop-blur-md border-b border-[#451400]/15">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-    <!-- Brand Logo -->
-    <a href="#top" class="flex items-center gap-3 group focus:outline-none" aria-label="La Brasa Criolla - Inicio">
-      <div class="relative w-12 h-12 flex-shrink-0">
-        <Image 
-          src={logoImg} 
-          alt="Logo La Brasa Criolla" 
-          class="w-full h-full object-contain filter drop-shadow-sm transition-transform duration-200 group-hover:scale-105" 
-          width={96}
-          height={96}
-          loading="eager"
-        />
-      </div>
-      <div class="flex flex-col">
-        <span class="font-display text-2xl sm:text-3xl tracking-wide text-[#451400] leading-none uppercase">
-          La Brasa Criolla
-        </span>
-        <span class="font-body text-[11px] font-bold tracking-widest text-[#786259] uppercase -mt-0.5">
-          Asadero & Restaurante
-        </span>
-      </div>
+    <!-- Brand Logo (Official round badge taking full space) -->
+    <a href="#top" class="flex items-center group focus:outline-none py-1" aria-label="La Brasa Criolla - Inicio">
+      <Image 
+        src={logoImg} 
+        alt="La Brasa Criolla — Asadero & Restaurante en La Plata, Huila" 
+        class="h-14 sm:h-16 w-auto max-w-[180px] sm:max-w-[220px] object-contain filter drop-shadow-sm transition-transform duration-200 group-hover:scale-105" 
+        height={130}
+        loading="eager"
+      />
     </a>
 
     <!-- Desktop Navigation Links -->
