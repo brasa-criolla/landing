@@ -56,13 +56,31 @@ import DishCard from './DishCard.astro';
       </span>
     </div>
 
-    <!-- Dishes Grid -->
-    <div id="dishes-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      {MENU_ITEMS.map((dish) => (
-        <div class="dish-item-wrapper" data-category={dish.category}>
-          <DishCard dish={dish} />
-        </div>
-      ))}
+    <!-- Dishes grouped by category, instead of one long undifferentiated grid -->
+    <div id="dishes-grid">
+      {CATEGORIES.map((cat) => {
+        const items = MENU_ITEMS.filter((item) => item.category === cat.id);
+        return (
+          <div class="menu-category-group mb-14 last:mb-0" data-category-group={cat.id}>
+            <div class="flex items-center gap-3 mb-6 pb-3 border-b-2 border-[#451400]">
+              <span class="text-2xl leading-none">{cat.icon}</span>
+              <h3 class="font-display text-2xl sm:text-3xl text-[#451400] uppercase tracking-wide leading-none">
+                {cat.name}
+              </h3>
+              <span class="text-xs font-extrabold uppercase tracking-wider text-[#786259]">
+                ({items.length})
+              </span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {items.map((dish) => (
+                <div class="dish-item-wrapper" data-category={dish.category}>
+                  <DishCard dish={dish} headingLevel="h4" />
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })}
     </div>
 
     <!-- Note at the end of the menu -->
@@ -79,6 +97,7 @@ import DishCard from './DishCard.astro';
   // Fast client-side category filtering
   const tabs = document.querySelectorAll<HTMLButtonElement>('.category-tab');
   const items = document.querySelectorAll<HTMLElement>('.dish-item-wrapper');
+  const groups = document.querySelectorAll<HTMLElement>('.menu-category-group');
   const label = document.getElementById('current-filter-label');
   const counter = document.getElementById('items-counter');
 
@@ -97,14 +116,17 @@ import DishCard from './DishCard.astro';
 
       let visibleCount = 0;
 
-      // Filter Items
+      // Show/Hide Whole Category Groups
+      groups.forEach(group => {
+        const groupCategory = group.getAttribute('data-category-group');
+        group.classList.toggle('hidden', !(filter === 'todos' || groupCategory === filter));
+      });
+
+      // Count Visible Items
       items.forEach(item => {
         const itemCategory = item.getAttribute('data-category');
         if (filter === 'todos' || itemCategory === filter) {
-          item.classList.remove('hidden');
           visibleCount++;
-        } else {
-          item.classList.add('hidden');
         }
       });
 

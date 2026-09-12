@@ -3,7 +3,8 @@ import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
-import { RESTAURANT_INFO } from '../data/restaurant-info';
+import { RESTAURANT_INFO, SITE_URL } from '../data/restaurant-info';
+import { CATEGORIES, MENU_ITEMS } from '../data/menu';
 
 interface Props {
   title?: string;
@@ -30,7 +31,7 @@ const {
 
     <!-- Primary SEO Meta Tags -->
     <title>{title}</title>
-    <link rel="canonical" href="https://brasacriolla.com/" />
+    <link rel="canonical" href={`${SITE_URL}/`} />
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta name="keywords" content="asadero la plata huila, restaurante la plata huila, pollo asado huila, carnes al carbon, comida tipica huila, picada mixta, la brasa criolla, barrio paez la plata" />
@@ -38,11 +39,14 @@ const {
     <meta name="theme-color" content="#451400" />
 
     <!-- Open Graph / Facebook / WhatsApp (Rich Social Card) -->
-    <meta property="og:type" content="restaurant" />
-    <meta property="og:url" content="https://brasacriolla.com/" />
+    <!-- og:type "website" en vez de "restaurant": ese tipo requiere registrar la página
+         como Open Graph Object en Facebook o la mayoría de parsers (WhatsApp, Slack,
+         LinkedIn) lo ignoran y caen a un fallback sin vista previa. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={`${SITE_URL}/`} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="https://brasacriolla.com/og-image.jpg" />
+    <meta property="og:image" content={`${SITE_URL}/og-image.jpg`} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="es_CO" />
@@ -52,7 +56,7 @@ const {
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content="https://brasacriolla.com/og-image.jpg" />
+    <meta property="twitter:image" content={`${SITE_URL}/og-image.jpg`} />
 
     <!-- Structured Data (Schema.org / JSON-LD) for Local SEO & Google Maps -->
     <script type="application/ld+json" set:html={JSON.stringify({
@@ -60,7 +64,7 @@ const {
       "@type": "Restaurant",
       "name": RESTAURANT_INFO.name,
       "alternateName": "Restaurante y Asadero La Brasa Criolla",
-      "image": "https://brasacriolla.com/og-image.jpg",
+      "image": `${SITE_URL}/og-image.jpg`,
       "description": RESTAURANT_INFO.description,
       "servesCuisine": ["Colombiana", "Asados al Carbón", "Pollo Asado", "Pescados"],
       "priceRange": "$$",
@@ -79,7 +83,7 @@ const {
         "latitude": 2.3907,
         "longitude": -75.8927
       },
-      "url": "https://brasacriolla.com/",
+      "url": `${SITE_URL}/`,
       "telephone": [RESTAURANT_INFO.phone, "+576088371470"],
       "email": RESTAURANT_INFO.email,
       "openingHoursSpecification": [
@@ -102,7 +106,27 @@ const {
           "closes": "21:00"
         }
       ],
-      "sameAs": RESTAURANT_INFO.socialLinks.map(s => s.url)
+      "sameAs": RESTAURANT_INFO.socialLinks.map(s => s.url),
+      "hasMenu": {
+        "@type": "Menu",
+        "name": `Carta de ${RESTAURANT_INFO.name}`,
+        "url": `${SITE_URL}/#menu`,
+        "hasMenuSection": CATEGORIES.map((cat) => ({
+          "@type": "MenuSection",
+          "name": cat.name,
+          "description": cat.shortDescription,
+          "hasMenuItem": MENU_ITEMS.filter((item) => item.category === cat.id).map((item) => ({
+            "@type": "MenuItem",
+            "name": item.name,
+            "description": item.description,
+            "offers": {
+              "@type": "Offer",
+              "price": item.price,
+              "priceCurrency": "COP"
+            }
+          }))
+        }))
+      }
     })} />
 
     <!-- Google Fonts Preconnect & Loading: Bebas Neue + Nunito -->

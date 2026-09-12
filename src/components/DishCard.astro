@@ -5,9 +5,11 @@ import { RESTAURANT_INFO } from '../data/restaurant-info';
 
 interface Props {
   dish: Dish;
+  headingLevel?: 'h3' | 'h4';
 }
 
-const { dish } = Astro.props;
+const { dish, headingLevel = 'h3' } = Astro.props;
+const HeadingTag = headingLevel;
 
 const orderMessage = `¡Hola La Brasa Criolla! Vengo de la página web y deseo ordenar: *${dish.name}* (${formatCOP(dish.price)}). ¿Tienen disponibilidad?`;
 const dishWaUrl = buildWhatsAppLink(RESTAURANT_INFO.whatsapp, orderMessage);
@@ -59,9 +61,9 @@ const displayImage = dish.image || fallbackImages[dish.category] || fallbackImag
   <div class="p-4 sm:p-5 flex flex-col flex-grow justify-between">
     <div>
       <div class="flex items-start justify-between gap-2 mb-1.5">
-        <h3 class="font-display text-2xl text-[#451400] uppercase tracking-wide leading-tight group-hover:text-[#C60101] transition-colors">
+        <HeadingTag class="font-display text-2xl text-[#451400] uppercase tracking-wide leading-tight group-hover:text-[#C60101] transition-colors">
           {dish.name}
-        </h3>
+        </HeadingTag>
       </div>
 
       {dish.description && (
@@ -100,7 +102,7 @@ const displayImage = dish.image || fallbackImages[dish.category] || fallbackImag
         href={dishWaUrl}
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex items-center justify-center gap-1.5 bg-[#451400] hover:bg-[#C60101] text-white px-3.5 h-9 rounded-[4px] text-xs font-bold uppercase tracking-wider transition-colors border border-[#451400] active:scale-95 shadow-sm"
+        class="inline-flex items-center justify-center gap-1.5 bg-[#451400] hover:bg-[#C60101] text-white px-4 h-10 rounded-[4px] text-xs font-bold uppercase tracking-wider transition-colors border border-[#451400] active:scale-95 shadow-sm"
         aria-label={`Pedir ${dish.name} por WhatsApp`}
       >
         <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">

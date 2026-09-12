@@ -1,3 +1,8 @@
+// Dominio placeholder: este proyecto todavía no tiene dominio propio.
+// Actualizar este único valor cuando se registre el dominio definitivo
+// (hoy el sitio vive en un subdominio temporal de Vercel para pruebas en celular).
+export const SITE_URL = "https://brasacriolla.com";
+
 export interface ScheduleItem {
   days: string;
   hours: string;
