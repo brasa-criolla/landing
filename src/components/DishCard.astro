@@ -2,6 +2,7 @@
 import type { Dish } from '../data/menu';
 import { formatCOP, buildWhatsAppLink } from '../lib/format';
 import { RESTAURANT_INFO } from '../data/restaurant-info';
+import { Image } from 'astro:assets';
 
 interface Props {
   dish: Dish;
@@ -24,21 +25,35 @@ const fallbackImages: Record<string, string> = {
 };
 
 const displayImage = dish.image || fallbackImages[dish.category] || fallbackImages.carnes;
+const isLocalAsset = typeof displayImage !== 'string';
+const dishImageAlt = `${dish.name} — La Brasa Criolla (La Plata, Huila)`;
 ---
 
-<article 
+<article
   class="group flex flex-col bg-white rounded-[4px] border border-[#D4CBC7] hover:border-[#451400] transition-all duration-200 overflow-hidden shadow-sm hover:shadow-md h-full"
   data-category={dish.category}
 >
   <!-- Card Image Container with Fixed Aspect Ratio -->
   <div class="relative aspect-[16/10] sm:aspect-[4/3] w-full overflow-hidden bg-[#F4EFE0]">
-    <img 
-      src={displayImage} 
-      alt={`${dish.name} — La Brasa Criolla (La Plata, Huila)`}
-      loading="lazy"
-      decoding="async"
-      class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
-    />
+    {isLocalAsset ? (
+      <Image
+        src={displayImage}
+        alt={dishImageAlt}
+        loading="lazy"
+        decoding="async"
+        widths={[300, 450, 600]}
+        sizes="(min-width: 1280px) 300px, (min-width: 1024px) 320px, (min-width: 640px) 45vw, 100vw"
+        class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
+      />
+    ) : (
+      <img
+        src={displayImage as string}
+        alt={dishImageAlt}
+        loading="lazy"
+        decoding="async"
+        class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
+      />
+    )}
 
     <!-- Badge if present -->
     {dish.badge && (

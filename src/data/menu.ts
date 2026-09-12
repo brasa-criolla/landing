@@ -1,3 +1,5 @@
+import type { ImageMetadata } from 'astro';
+
 export type MenuCategory = 'carnes' | 'pollo' | 'pescado' | 'arroz' | 'bebidas';
 
 export interface CategoryInfo {
@@ -24,10 +26,14 @@ export interface Dish {
   description?: string;
   featured?: boolean;
   badge?: string;
-  image?: string;
+  image?: string | ImageMetadata;
 }
 
-export const MENU_ITEMS: Dish[] = [
+// Cada plato referencia su foto como string ("/images/dishes/xxx.jpg") en el objeto
+// de abajo, por legibilidad. Ese string se resuelve a la imagen optimizada real
+// (src/assets/dishes/xxx.jpg) más abajo, vía import.meta.glob, sin tener que
+// escribir 45 imports a mano.
+const MENU_ITEMS_RAW: Dish[] = [
   // --- CARNES ---
   {
     id: "picada-mixta",
@@ -454,3 +460,19 @@ export const MENU_ITEMS: Dish[] = [
     description: "Envase familiar refrescante."
   }
 ];
+
+// Carga elegida (eager) de todas las fotos reales en src/assets/dishes/*.jpg,
+// optimizadas por Astro (astro:assets) en build: WebP/AVIF + tamaños responsive.
+const dishImageModules = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/dishes/*.jpg',
+  { eager: true }
+);
+
+function resolveDishImage(id: string): ImageMetadata | undefined {
+  return dishImageModules[`../assets/dishes/${id}.jpg`]?.default;
+}
+
+export const MENU_ITEMS: Dish[] = MENU_ITEMS_RAW.map((item) => ({
+  ...item,
+  image: resolveDishImage(item.id) ?? item.image
+}));
