@@ -1,7 +1,8 @@
 ---
-import type { Dish } from '../data/menu';
+import { CATEGORIES, type Dish } from '../data/menu';
 import { formatCOP } from '../lib/format';
 import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
 
 interface Props {
   dish: Dish;
@@ -10,10 +11,12 @@ interface Props {
 
 const { dish, headingLevel } = Astro.props;
 const Heading = headingLevel;
+const hasPrice = dish.price !== undefined;
+const placeholderIcon = CATEGORIES.find((category) => category.id === dish.category)?.icon ?? 'lucide:utensils';
 ---
 
 <article class="relative flex gap-3.5 py-4">
-  {dish.image && (
+  {dish.image ? (
     <Image
       src={dish.image}
       alt=""
@@ -23,20 +26,27 @@ const Heading = headingLevel;
       decoding="async"
       class="size-22 shrink-0 rounded-sm bg-cream-muted object-cover"
     />
+  ) : (
+    <div class="flex size-22 shrink-0 items-center justify-center rounded-sm bg-cream-muted text-ash/60" aria-hidden="true">
+      <Icon name={placeholderIcon} class="size-8" />
+    </div>
   )}
   <div class="min-w-0 flex-1">
     <div class="flex items-start justify-between gap-3">
       <Heading class="font-display text-[1.375rem] uppercase leading-[1.05] tracking-wide text-ink">{dish.name}</Heading>
-      <p class="shrink-0 whitespace-nowrap pt-0.5 text-base font-extrabold leading-tight tabular-nums text-ink">
-        {formatCOP(dish.price)}
+      <p
+        class:list={[
+          'shrink-0 whitespace-nowrap pt-0.5 leading-tight tabular-nums',
+          hasPrice ? 'text-base font-extrabold text-ink' : 'text-sm font-bold text-ash',
+        ]}
+      >
+        {hasPrice ? formatCOP(dish.price!) : 'Consultar'}
       </p>
     </div>
-    {dish.badge && (
-      <p class="mt-1.5 inline-block rounded-sm bg-brand-gold px-1.5 py-0.5 text-xs font-extrabold uppercase tracking-wide text-ink">
-        {dish.badge}
-      </p>
+    {dish.accompaniments.length > 0 && (
+      <p class="mt-1 line-clamp-2 text-sm leading-snug text-ash">{dish.accompaniments.join(' · ')}</p>
     )}
-    <p class="mt-1 line-clamp-2 text-sm leading-snug text-ash">{dish.accompaniments.join(' · ')}</p>
+    {dish.availability && <p class="mt-1 text-sm font-semibold text-ink-soft">Solo {dish.availability.toLowerCase()}</p>}
   </div>
   <button
     type="button"

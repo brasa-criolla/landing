@@ -11,10 +11,10 @@ interface Props {
 
 const { allowOrdering } = Astro.props;
 
-const orderUrl = (name: string, price: number) =>
+const orderUrl = (name: string, price?: number) =>
   buildWhatsAppLink(
     RESTAURANT_INFO.whatsapp,
-    `¡Hola La Brasa Criolla! Vengo de la página web y deseo ordenar: *${name}* (${formatCOP(price)}). ¿Tienen disponibilidad?`,
+    `¡Hola La Brasa Criolla! Vengo de la página web y me gustaría encargar para recoger: *${name}*${price !== undefined ? ` (${formatCOP(price)})` : ''}.`,
   );
 ---
 
@@ -38,7 +38,7 @@ const orderUrl = (name: string, price: number) =>
         class="flex h-12 w-full items-center justify-center gap-2 rounded-sm bg-brand-green text-sm font-extrabold uppercase tracking-wide text-white transition-colors hover:bg-brand-green-dark"
       >
         <Icon name="simple-icons:whatsapp" class="size-5" aria-hidden="true" />
-        Pedir a domicilio por WhatsApp
+        Encargar para recoger
       </a>
     </div>
   )}
@@ -57,23 +57,29 @@ const orderUrl = (name: string, price: number) =>
         class="aspect-[4/3] w-full bg-cream-muted object-cover"
       />
     )}
-    <div class:list={['px-5 pt-4', allowOrdering ? 'pb-5' : 'pb-8']}>
+    <div class:list={['px-5', dish.image ? 'pt-4' : 'pt-16', allowOrdering ? 'pb-5' : 'pb-8']}>
       <div class="flex items-start justify-between gap-4">
         <h2 data-dish-title class="font-display text-[1.75rem] uppercase leading-none tracking-wide text-ink">{dish.name}</h2>
-        <p class="shrink-0 whitespace-nowrap pt-1 text-xl font-extrabold tabular-nums text-ink">{formatCOP(dish.price)}</p>
-      </div>
-      {dish.badge && (
-        <p class="mt-2 inline-block rounded-sm bg-brand-gold px-2 py-0.5 text-xs font-extrabold uppercase tracking-wide text-ink">
-          {dish.badge}
+        <p
+          class:list={[
+            'shrink-0 whitespace-nowrap pt-1 tabular-nums',
+            dish.price !== undefined ? 'text-xl font-extrabold text-ink' : 'text-base font-bold text-ash',
+          ]}
+        >
+          {dish.price !== undefined ? formatCOP(dish.price) : 'Consultar precio'}
         </p>
+      </div>
+      {dish.availability && <p class="mt-2 text-base font-semibold text-ink-soft">Solo {dish.availability.toLowerCase()}</p>}
+      {dish.accompaniments.length > 0 && (
+        <>
+          <h3 class="mt-5 text-xs font-extrabold uppercase tracking-wider text-ash">Incluye</h3>
+          <ul class="mt-2 flex flex-wrap gap-2">
+            {dish.accompaniments.map((item) => (
+              <li class="rounded-sm border border-hairline bg-white px-2.5 py-1 text-sm font-semibold text-ink">{item}</li>
+            ))}
+          </ul>
+        </>
       )}
-      {dish.description && <p class="mt-3 text-base leading-relaxed text-ink-soft">{dish.description}</p>}
-      <h3 class="mt-5 text-xs font-extrabold uppercase tracking-wider text-ash">Incluye</h3>
-      <ul class="mt-2 flex flex-wrap gap-2">
-        {dish.accompaniments.map((item) => (
-          <li class="rounded-sm border border-hairline bg-white px-2.5 py-1 text-sm font-semibold text-ink">{item}</li>
-        ))}
-      </ul>
     </div>
   </template>
 ))}

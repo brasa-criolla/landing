@@ -32,7 +32,7 @@ Definidos en `src/styles/global.css` (`@theme`), usar como clases de Tailwind (`
 | `cream-muted` | `#F4EFE0` | Fondo de bloques secundarios y placeholders de imagen. |
 | `brand-red` | `#C60101` | **Rojo Fuego**: CTA principal, eyebrows y estado "Cerrado". No se usa en precios. |
 | `brand-gold` | `#FDDC32` | **Amarillo Maíz**: badges de plato, estado de apertura en el hero, acentos sobre fondo oscuro. |
-| `brand-green` | `#027D25` | **Verde Criollo**: WhatsApp (botón flotante y "Pedir a domicilio"). |
+| `brand-green` | `#027D25` | **Verde Criollo**: WhatsApp (botón flotante y "Encargar para recoger"). |
 | `open` | `#1A8A45` | Punto del estado "Abierto ahora". |
 
 ---
@@ -66,16 +66,16 @@ Las fuentes se alojan en el propio sitio con la API de fuentes de Astro (`fonts`
 
 1. **Navbar** (home) / **CartaHeader** (`/carta`): header fijo; el de la carta muestra la mesa (`?mesa=7`) y el estado de apertura.
 2. **Hero:** foto de fondo a baja resolución en móvil (va al 40% de opacidad), estado de apertura en vivo y doble CTA.
-3. **OpenStatus:** "Abierto ahora · hasta las 7:00 p.m." calculado con la hora de Colombia a partir de `openingHours`. No detecta festivos.
+3. **OpenStatus:** "Abierto ahora · hasta las 7:00 p.m." calculado con la hora de Colombia a partir de `openingHours` y `holidayHours`, con los festivos colombianos calculados en `src/lib/schedule.ts`.
 4. **HeroStrip:** franja dorada de promesa de calidad.
 5. **FeaturedGrid + DishTile:** platos destacados; carrusel horizontal en móvil, grilla en escritorio.
 6. **MenuList + DishRow:** barra de categorías fija con resaltado de la sección actual y filas compactas (foto 88px, nombre, precio, acompañamientos).
-7. **DishSheet:** detalle del plato en panel inferior (`<dialog>`); se cierra con ✕, tocando fuera o con el botón "atrás" del celular. En la home incluye "Pedir a domicilio por WhatsApp"; en `/carta` no.
+7. **DishSheet:** detalle del plato en panel inferior (`<dialog>`); se cierra con ✕, tocando fuera o con el botón "atrás" del celular. En la home incluye "Encargar para recoger" por WhatsApp (el restaurante no hace domicilios ni reserva mesas); en `/carta` no.
 8. **QualityCard:** panel de tradición de leña y carbón vegetal.
 9. **ContactSection:** horarios, dirección y mapa de Google que se carga solo al tocarlo en móvil.
 10. **WhatsApp flotante:** solo en la home.
 
 ## 6. Páginas
 
-- **`/`**: landing para quien llega desde Google, Instagram o busca domicilio.
+- **`/`**: landing para quien llega desde Google o Instagram; los pedidos se encargan por WhatsApp para recoger.
 - **`/carta`**: carta de mesa. Destino de la tarjeta NFC/QR (`/carta?mesa=N`). Sin marketing, sin mapa y sin WhatsApp por plato.

@@ -37,6 +37,7 @@ const structuredData = {
   priceRange: '$$',
   currenciesAccepted: 'COP',
   paymentAccepted: 'Cash, Credit Card, Debit Card, Nequi, Daviplata, Bancolombia',
+  acceptsReservations: false,
   address: {
     '@type': 'PostalAddress',
     streetAddress: `${RESTAURANT_INFO.address}, ${RESTAURANT_INFO.neighborhood}`,
@@ -67,8 +68,8 @@ const structuredData = {
       hasMenuItem: MENU_ITEMS.filter((item) => item.category === category.id).map((item) => ({
         '@type': 'MenuItem',
         name: item.name,
-        description: item.description,
-        offers: { '@type': 'Offer', price: item.price, priceCurrency: 'COP' },
+        ...(item.accompaniments.length > 0 && { description: `Incluye: ${item.accompaniments.join(', ')}` }),
+        ...(item.price !== undefined && { offers: { '@type': 'Offer', price: item.price, priceCurrency: 'COP' } }),
       })),
     })),
   },

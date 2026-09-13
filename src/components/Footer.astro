@@ -1,6 +1,6 @@
 ---
 import { RESTAURANT_INFO } from '../data/restaurant-info';
-import { CATEGORIES, MENU_ITEMS } from '../data/menu';
+import { CATEGORIES } from '../data/menu';
 import logoImg from '../assets/logo-oficial.png';
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
@@ -11,18 +11,18 @@ const iconFor = (categoryId: string) => CATEGORIES.find((category) => category.i
 const navLinks = [
   { href: '#inicio', label: 'Inicio' },
   { href: '#destacados', label: 'Platos Estrella' },
-  { href: '#menu', label: `Carta Completa (${MENU_ITEMS.length} Platos)` },
+  { href: '#menu', label: 'Carta Completa' },
   { href: '/carta', label: 'Carta Digital para la Mesa' },
   { href: '#tradicion', label: 'Nuestra Tradición al Carbón' },
   { href: '#contacto', label: 'Horarios y Ubicación' },
 ];
 
 const specialties = [
-  { category: 'carnes', label: 'Carnes Asadas (Churrasco, Bistek, Lomo BBQ)' },
-  { category: 'pollo', label: 'Pollo al Carbón y Broaster Apanado' },
+  { category: 'carnes', label: 'Carnes (Churrasco, Bistek, Costilla BBQ)' },
+  { category: 'pollo', label: 'Pollo Asado, Broaster y Pechugas' },
   { category: 'pescado', label: 'Pescados (Mojarra Frita, Bagre, Trucha)' },
-  { category: 'arroz', label: 'Arroz con Pollo & Camarones' },
-  { category: 'bebidas', label: 'Limonada de Panela Campesina & Jugos Naturales' },
+  { category: 'arroz', label: 'Arroz con Pollo, Chino y con Camarones' },
+  { category: 'bebidas', label: 'Jugos Naturales, Limonadas y Gaseosas' },
 ];
 ---
 

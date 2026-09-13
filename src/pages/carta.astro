@@ -13,7 +13,7 @@ const featuredDishes = MENU_ITEMS.filter((dish) => dish.featured);
   variant="carta"
   canonicalPath="/carta"
   title={`Carta y precios | ${RESTAURANT_INFO.name} — La Plata, Huila`}
-  description={`Menú completo de ${RESTAURANT_INFO.name} con precios: ${MENU_ITEMS.length} opciones entre carnes al carbón, pollo asado y broaster, pescados, arroces y bebidas. ${RESTAURANT_INFO.address}, La Plata, Huila.`}
+  description={`Menú completo de ${RESTAURANT_INFO.name} con precios: carnes, pollo asado y broaster, pechugas, pescados, arroces y bebidas. ${RESTAURANT_INFO.address}, La Plata, Huila.`}
 >
   <div class="mx-auto max-w-3xl px-4 pb-16">
     <div class="pb-3 pt-6">
@@ -23,7 +23,7 @@ const featuredDishes = MENU_ITEMS.filter((dish) => dish.featured);
     </div>
 
     <section aria-labelledby="mas-pedido-title" class="pt-3">
-      <h2 id="mas-pedido-title" class="text-xs font-extrabold uppercase tracking-widest text-ash">Lo más pedido</h2>
+      <h2 id="mas-pedido-title" class="text-xs font-extrabold uppercase tracking-widest text-ash">Especialidades de la casa</h2>
       <ul class="no-scrollbar -mx-4 mt-3 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 pb-3">
         {featuredDishes.map((dish, index) => (
           <li class="w-[64%] shrink-0 snap-start sm:w-60">
@@ -42,9 +42,10 @@ const featuredDishes = MENU_ITEMS.filter((dish) => dish.featured);
         Todos los precios están expresados en Pesos Colombianos (COP) e incluyen los impuestos aplicables. Los acompañamientos
         pueden variar según disponibilidad del día.
       </p>
+      <p>La casa no se hace responsable por descuido u olvido de objetos personales.</p>
       <p>{RESTAURANT_INFO.address}, {RESTAURANT_INFO.neighborhood} · {RESTAURANT_INFO.city}, {RESTAURANT_INFO.department}</p>
       <a href="/" class="inline-flex min-h-11 items-center gap-1.5 font-bold text-ink underline underline-offset-4">
-        Conoce nuestra historia, horarios y domicilios
+        Conoce nuestra historia y horarios
         <Icon name="lucide:arrow-right" class="size-4" aria-hidden="true" />
       </a>
     </footer>

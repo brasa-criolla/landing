@@ -9,13 +9,13 @@ import OpenStatus from './OpenStatus.astro';
 
 const waHeroUrl = buildWhatsAppLink(
   RESTAURANT_INFO.whatsapp,
-  '¡Hola! Me gustaría hacer una reserva o pedir a domicilio desde la página web.',
+  '¡Hola! Vengo de la página web y me gustaría encargar un pedido para recoger.',
 );
 
 const highlights = [
   { title: '100% Carbón', detail: 'Leña & brasa natural' },
   { title: 'Hecho al Momento', detail: 'Máxima frescura' },
-  { title: 'Carta Completa', detail: `${MENU_ITEMS.length} platos típicos` },
+  { title: 'Carta Completa', detail: `${MENU_ITEMS.filter((item) => item.category !== 'bebidas').length} platos típicos` },
   { title: RESTAURANT_INFO.address, detail: `${RESTAURANT_INFO.city}, ${RESTAURANT_INFO.department}` },
 ];
 ---
@@ -71,7 +71,7 @@ const highlights = [
         class="inline-flex h-13 w-full items-center justify-center gap-2 rounded-sm border border-cream/40 px-7 font-display text-xl uppercase tracking-wider text-cream transition-colors hover:border-brand-gold hover:bg-cream/10 hover:text-brand-gold sm:w-auto"
       >
         <Icon name="simple-icons:whatsapp" class="size-5" aria-hidden="true" />
-        Pedir a Domicilio
+        Encargar para Recoger
       </a>
     </div>
 
