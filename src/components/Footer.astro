@@ -2,6 +2,7 @@
 import { RESTAURANT_INFO } from '../data/restaurant-info';
 import logoImg from '../assets/logo-oficial.png';
 import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
 
 const currentYear = new Date().getFullYear();
 ---
@@ -25,7 +26,10 @@ const currentYear = new Date().getFullYear();
         </p>
 
         <div class="pt-2 text-xs text-[#FDDC32] font-semibold space-y-1">
-          <div>📍 {RESTAURANT_INFO.address}, {RESTAURANT_INFO.neighborhood}</div>
+          <div class="flex items-center gap-1.5">
+            <Icon name="material-symbols:location-on-outline-rounded" class="w-4 h-4 flex-shrink-0" aria-hidden="true" />
+            <span>{RESTAURANT_INFO.address}, {RESTAURANT_INFO.neighborhood}</span>
+          </div>
           <div>{RESTAURANT_INFO.city}, {RESTAURANT_INFO.department} · Colombia</div>
         </div>
 
@@ -39,9 +43,7 @@ const currentYear = new Date().getFullYear();
               class="inline-flex items-center justify-center w-8 h-8 rounded-[4px] bg-[#381200] hover:bg-[#C60101] text-white border border-white/15 transition-colors text-xs font-bold"
               aria-label={social.name}
             >
-              {social.icon === 'instagram' && '📸'}
-              {social.icon === 'facebook' && '📘'}
-              {social.icon === 'whatsapp' && '💬'}
+              <Icon name={`simple-icons:${social.icon}`} class="w-4 h-4" aria-hidden="true" />
             </a>
           ))}
           <span class="text-xs text-[#D4CBC7] font-semibold">@restaurantelabrasacri0lla</span>
@@ -78,11 +80,26 @@ const currentYear = new Date().getFullYear();
           Especialidades del Menú
         </h4>
         <ul class="space-y-2.5 font-body text-xs sm:text-sm font-semibold text-[#D4CBC7]">
-          <li>🥩 Carnes Asadas (Churrasco, Bistek, Lomo BBQ)</li>
-          <li>🍗 Pollo al Carbón y Broaster Apanado</li>
-          <li>🐟 Pescados (Mojarra Frita, Bagre, Trucha)</li>
-          <li>🍚 Arroz con Pollo & Camarones</li>
-          <li>🥤 Limonada de Panela Campesina & Jugos Naturales</li>
+          <li class="flex items-center gap-2">
+            <Icon name="material-symbols:outdoor-grill-outline-rounded" class="w-4 h-4 flex-shrink-0" aria-hidden="true" />
+            <span>Carnes Asadas (Churrasco, Bistek, Lomo BBQ)</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <Icon name="material-symbols:dinner-dining-outline-rounded" class="w-4 h-4 flex-shrink-0" aria-hidden="true" />
+            <span>Pollo al Carbón y Broaster Apanado</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <Icon name="material-symbols:set-meal-outline-rounded" class="w-4 h-4 flex-shrink-0" aria-hidden="true" />
+            <span>Pescados (Mojarra Frita, Bagre, Trucha)</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <Icon name="material-symbols:rice-bowl-outline-rounded" class="w-4 h-4 flex-shrink-0" aria-hidden="true" />
+            <span>Arroz con Pollo & Camarones</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <Icon name="material-symbols:local-drink-outline-rounded" class="w-4 h-4 flex-shrink-0" aria-hidden="true" />
+            <span>Limonada de Panela Campesina & Jugos Naturales</span>
+          </li>
         </ul>
 
         <div class="mt-6 pt-4 border-t border-white/10 space-y-1">

@@ -26,7 +26,7 @@
 
 ## 🍗 Visión General
 
-Este repositorio contiene la **Landing Page oficial de alta conversión** para el restaurante **La Brasa Criolla**. Diseñada para ofrecer una experiencia rápida, moderna y apetitosa inspirada en sistemas visuales *fast-casual* de clase mundial (disciplina cromática de Chipotle + calidez del asado colombiano).
+Este repositorio contiene la **Landing Page oficial de alta conversión** para el restaurante **La Brasa Criolla**. Diseñada para ofrecer una experiencia rápida, moderna y apetitosa inspirada en sistemas visuales *fast-casual* de clase mundial, con la calidez del asado colombiano.
 
 ### ✨ Funcionalidades Destacadas
 - **🚀 Rendimiento y Cero Bloqueo:** Construido sobre Astro 7 con arquitectura de islas y carga estática ultrarrápida.

@@ -1,5 +1,6 @@
 ---
 import { RESTAURANT_INFO } from '../data/restaurant-info';
+import { Icon } from 'astro-icon/components';
 ---
 
 <section id="contacto" class="py-16 sm:py-24 bg-[#FCF9EC]">
@@ -64,13 +65,16 @@ import { RESTAURANT_INFO } from '../data/restaurant-info';
               <span class="text-xs font-bold uppercase tracking-wider text-[#786259] block mb-1.5">Medios de Pago Aceptados:</span>
               <div class="flex flex-wrap gap-1.5">
                 <span class="inline-flex items-center gap-1 bg-[#FCF9EC] border border-[#D4CBC7] px-2 py-0.5 rounded-[4px] text-[11px] font-bold text-[#451400]">
-                  💵 Efectivo
+                  <Icon name="material-symbols:payments-outline-rounded" class="w-3.5 h-3.5" aria-hidden="true" />
+                  Efectivo
                 </span>
                 <span class="inline-flex items-center gap-1 bg-[#FCF9EC] border border-[#D4CBC7] px-2 py-0.5 rounded-[4px] text-[11px] font-bold text-[#451400]">
-                  💳 Tarjetas Débito / Crédito
+                  <Icon name="material-symbols:credit-card-outline" class="w-3.5 h-3.5" aria-hidden="true" />
+                  Tarjetas Débito / Crédito
                 </span>
                 <span class="inline-flex items-center gap-1 bg-[#FCF9EC] border border-[#D4CBC7] px-2 py-0.5 rounded-[4px] text-[11px] font-bold text-[#451400]">
-                  📲 Nequi / Bancolombia / Daviplata
+                  <Icon name="material-symbols:smartphone-outline" class="w-3.5 h-3.5" aria-hidden="true" />
+                  Nequi / Bancolombia / Daviplata
                 </span>
               </div>
             </div>
@@ -109,8 +113,9 @@ import { RESTAURANT_INFO } from '../data/restaurant-info';
             ))}
           </div>
 
-          <div class="mt-4 p-2.5 bg-[#FCF9EC] rounded-[4px] border border-[#D4CBC7] text-[11px] text-[#786259]">
-            💡 <strong>Nota para fines de semana:</strong> Los sábados y domingos contamos con nuestra tradicional <em>Limonada de Panela Campesina</em>.
+          <div class="mt-4 p-2.5 bg-[#FCF9EC] rounded-[4px] border border-[#D4CBC7] text-[11px] text-[#786259] flex items-start gap-1.5">
+            <Icon name="material-symbols:lightbulb-outline-rounded" class="w-4 h-4 flex-shrink-0 mt-0.5" aria-hidden="true" />
+            <span><strong>Nota para fines de semana:</strong> Los sábados y domingos contamos con nuestra tradicional <em>Limonada de Panela Campesina</em>.</span>
           </div>
         </div>
       </div>

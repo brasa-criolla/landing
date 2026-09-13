@@ -4,7 +4,7 @@
   --font-display: "Bebas Neue", "Helvetica Neue", sans-serif;
   --font-body: "Nunito", "Helvetica Neue", sans-serif;
 
-  /* Chipotle & Brasa Criolla Chromatic Budget */
+  /* Brasa Criolla color palette */
   --color-ink: #451400;
   --color-ink-soft: #6b321b;
   --color-ash: #786259;
@@ -18,7 +18,6 @@
   --color-brand-gold-deep: #b68207;
   --color-brand-green: #027d25;
   --color-brand-green-dark: #075c20;
-  --color-brand-orange: #b6370d;
 
   --radius-sm: 4px;
   --radius-md: 12px;
@@ -61,7 +60,7 @@ body {
   color: #ffffff;
 }
 
-/* Chipotle-inspired hairline border and button utilities */
+/* Hairline border and button utilities */
 .border-hairline {
   border-color: #d4cbc7;
 }

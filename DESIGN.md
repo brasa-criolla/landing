@@ -1,6 +1,6 @@
 # Brasa Criolla — Sistema de Diseño (DESIGN.md)
 
-**Versión:** 2.0 (Chipotle-Inspired Fast-Casual Dining System)  
+**Versión:** 2.0 (Sistema Fast-Casual Propio)  
 **Proyecto:** Brasa Criolla — Asadero & Restaurante  
 **Ubicación:** La Plata, Huila — Colombia  
 **Objetivo:** Guía de identidad visual, tokens UI y componentes para la Landing Page y el Sistema Interno (POS/ERP).
@@ -13,14 +13,14 @@
 |---|---|
 | **Cálido & Tradicional** | Fondos crema suaves (`#FCF9EC`), madera tostada, tipografía con carácter, sin frialdad corporativa. |
 | **Apetitoso & Gastronómico** | Fotografías reales de asados al carbón, cortes jugosos y texturas de brasa. |
-| **Limpio & Moderno** | Inspiración en la disciplina de **Chipotle Mexican Grill**: tinta estructural consistente, 0 saturación innecesaria. |
+| **Limpio & Moderno** | Disciplina fast-casual: tinta estructural consistente, 0 saturación innecesaria. |
 | **Directo & Accesible** | Precios claros en COP ($), acompañamientos visibles, navegación ágil y botón directo a WhatsApp. |
 
 ---
 
 ## 2. Paleta de Colores & Tokens
 
-### 2.1 Colores Principales (Chipotle + Brasa Criolla)
+### 2.1 Colores Principales
 
 | Token | Hex | Rol / Uso |
 |---|---|---|
@@ -38,7 +38,6 @@
 
 ## 3. Geometría & Regla de 4px
 
-Siguiendo la estética de Chipotle:
 - **Botones y CTAs:** Radio de esquina exacto de **4px (`rounded-sm`)**. Nada de botones en píldora redondeada.
 - **Tarjetas de platos:** Radio de **4px** con marco fino de 1px (`#D4CBC7`).
 - **Paneles destacados (Catering / Calidad):** Radio de **12px (`rounded-md`)** reservado exclusivamente para paneles amplios.

@@ -1,6 +1,7 @@
 ---
 import { CATEGORIES, MENU_ITEMS } from '../data/menu';
 import DishCard from './DishCard.astro';
+import { Icon } from 'astro-icon/components';
 ---
 
 <section id="menu" class="py-16 sm:py-24 bg-[#FCF9EC]">
@@ -18,14 +19,15 @@ import DishCard from './DishCard.astro';
       </p>
     </div>
 
-    <!-- Chipotle-style Category Selector Tiles -->
+    <!-- Category Selector Tiles -->
     <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-12" role="tablist" aria-label="Categorías del Menú">
       <button 
         type="button" 
         data-filter="todos"
         class="category-tab active-tab px-4 sm:px-6 h-11 rounded-[4px] font-display text-lg tracking-wider uppercase transition-all duration-200 border border-[#451400] bg-[#451400] text-white shadow-sm flex items-center gap-2 cursor-pointer focus:outline-none"
       >
-        <span>🍽️ Todos ({MENU_ITEMS.length})</span>
+        <Icon name="material-symbols:dining-outline-rounded" class="w-5 h-5" aria-hidden="true" />
+        <span>Todos ({MENU_ITEMS.length})</span>
       </button>
 
       {CATEGORIES.map((cat) => {
@@ -36,7 +38,7 @@ import DishCard from './DishCard.astro';
             data-filter={cat.id}
             class="category-tab px-4 sm:px-5 h-11 rounded-[4px] font-display text-lg tracking-wider uppercase transition-all duration-200 border border-[#D4CBC7] bg-white text-[#451400] hover:border-[#451400] hover:bg-[#F4EFE0] shadow-sm flex items-center gap-2 cursor-pointer focus:outline-none"
           >
-            <span>{cat.icon}</span>
+            <Icon name={cat.icon} class="w-5 h-5" aria-hidden="true" />
             <span>{cat.name} ({count})</span>
           </button>
         );
@@ -63,7 +65,7 @@ import DishCard from './DishCard.astro';
         return (
           <div class="menu-category-group mb-14 last:mb-0" data-category-group={cat.id}>
             <div class="flex items-center gap-3 mb-6 pb-3 border-b-2 border-[#451400]">
-              <span class="text-2xl leading-none">{cat.icon}</span>
+              <Icon name={cat.icon} class="w-7 h-7 text-[#451400]" aria-hidden="true" />
               <h3 class="font-display text-2xl sm:text-3xl text-[#451400] uppercase tracking-wide leading-none">
                 {cat.name}
               </h3>

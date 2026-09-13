@@ -6,15 +6,16 @@ export interface CategoryInfo {
   id: MenuCategory;
   name: string;
   shortDescription: string;
+  /** Nombre de icono de Iconify (paquete material-symbols), usado con <Icon name={...} />. */
   icon: string;
 }
 
 export const CATEGORIES: CategoryInfo[] = [
-  { id: 'carnes', name: 'Carnes a la Brasa', shortDescription: 'Cortes seleccionados al carbón con sazón criolla', icon: '🥩' },
-  { id: 'pollo', name: 'Pollo Asado & Broaster', shortDescription: 'Dorado crujiente y jugoso por dentro', icon: '🍗' },
-  { id: 'pescado', name: 'Pescados del Río & Mar', shortDescription: 'Mojarra fresca, bagre y truchas preparadas al gusto', icon: '🐟' },
-  { id: 'arroz', name: 'Arroces Especiales', shortDescription: 'Porciones generosas con el toque tradicional', icon: '🍚' },
-  { id: 'bebidas', name: 'Bebidas & Refrescos', shortDescription: 'Limonadas naturales, jugos y gaseosas heladas', icon: '🥤' }
+  { id: 'carnes', name: 'Carnes a la Brasa', shortDescription: 'Cortes seleccionados al carbón con sazón criolla', icon: 'material-symbols:outdoor-grill-outline-rounded' },
+  { id: 'pollo', name: 'Pollo Asado & Broaster', shortDescription: 'Dorado crujiente y jugoso por dentro', icon: 'material-symbols:dinner-dining-outline-rounded' },
+  { id: 'pescado', name: 'Pescados del Río & Mar', shortDescription: 'Mojarra fresca, bagre y truchas preparadas al gusto', icon: 'material-symbols:set-meal-outline-rounded' },
+  { id: 'arroz', name: 'Arroces Especiales', shortDescription: 'Porciones generosas con el toque tradicional', icon: 'material-symbols:rice-bowl-outline-rounded' },
+  { id: 'bebidas', name: 'Bebidas & Refrescos', shortDescription: 'Limonadas naturales, jugos y gaseosas heladas', icon: 'material-symbols:local-drink-outline-rounded' }
 ];
 
 export interface Dish {

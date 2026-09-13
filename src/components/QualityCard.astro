@@ -1,5 +1,6 @@
 ---
 import { RESTAURANT_INFO } from '../data/restaurant-info';
+import { Icon } from 'astro-icon/components';
 ---
 
 <section id="tradicion" class="py-16 sm:py-24 bg-[#F4EFE0] border-y border-[#451400]/15">
@@ -51,8 +52,8 @@ import { RESTAURANT_INFO } from '../data/restaurant-info';
         <!-- Right Column: Visual Box with Highlight -->
         <div class="lg:col-span-5 flex flex-col items-center justify-center">
           <div class="w-full bg-[#381200] border border-white/20 rounded-[8px] p-6 sm:p-8 text-center shadow-lg">
-            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-[#C60101] text-white flex items-center justify-center font-display text-3xl shadow-inner border-2 border-[#FDDC32]">
-              🔥
+            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-[#C60101] text-white flex items-center justify-center shadow-inner border-2 border-[#FDDC32]">
+              <Icon name="material-symbols:local-fire-department-outline-rounded" class="w-8 h-8" aria-hidden="true" />
             </div>
             <span class="font-display text-2xl text-[#FCF9EC] uppercase block mb-1">
               ¿Deseas tu pedido listo al llegar?
