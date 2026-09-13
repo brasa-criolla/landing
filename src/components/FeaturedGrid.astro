@@ -1,60 +1,54 @@
 ---
 import { MENU_ITEMS } from '../data/menu';
-import DishCard from './DishCard.astro';
+import DishTile from './DishTile.astro';
 import { Icon } from 'astro-icon/components';
 
-// Select the top 4 flagship dishes
 const featuredDishes = MENU_ITEMS.filter((dish) => dish.featured).slice(0, 4);
 ---
 
-<section id="destacados" class="py-16 sm:py-24 bg-[#FCF9EC] border-b border-[#451400]/15">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Section Header -->
-    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+<section id="destacados" class="border-b border-ink/15 bg-cream py-14 sm:py-24" aria-labelledby="destacados-title">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-8 flex flex-col justify-between gap-3 md:mb-12 md:flex-row md:items-end">
       <div>
-        <span class="text-xs font-extrabold uppercase tracking-widest text-[#C60101] block mb-2">
-          Orgullo Parrillero de La Plata, Huila
-        </span>
-        <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl text-[#451400] uppercase tracking-wide leading-none">
+        <p class="mb-2 text-xs font-extrabold uppercase tracking-widest text-brand-red">Orgullo Parrillero de La Plata, Huila</p>
+        <h2 id="destacados-title" class="font-display text-4xl uppercase leading-none tracking-wide text-ink sm:text-5xl lg:text-6xl">
           Especialidades Asadas al Carbón
         </h2>
       </div>
-      <p class="font-body text-sm sm:text-base text-[#786259] max-w-md">
-        Los platos criollos más pedidos por locales y visitantes en La Plata: carnes de res, pollo dorado a la brasa y picadas familiares.
+      <p class="max-w-md text-base text-ash">
+        Los platos criollos más pedidos por locales y visitantes en La Plata: carnes de res, pollo dorado a la brasa y picadas
+        familiares.
       </p>
     </div>
 
-    <!-- 4-Up Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <ul
+      class="no-scrollbar -mx-4 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 lg:grid-cols-4"
+    >
       {featuredDishes.map((dish) => (
-        <DishCard dish={dish} />
+        <li class="w-[78%] shrink-0 snap-start sm:w-auto">
+          <DishTile dish={dish} headingLevel="h3" />
+        </li>
       ))}
-    </div>
+    </ul>
 
-    <!-- Callout Banner Below Grid -->
-    <div class="mt-12 p-6 bg-[#F4EFE0] rounded-[4px] border border-[#D4CBC7] flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-[4px] bg-[#451400] text-[#FDDC32] flex items-center justify-center flex-shrink-0">
-          <Icon name="material-symbols:star-rounded" class="w-6 h-6" aria-hidden="true" />
-        </div>
+    <div
+      class="mt-10 flex flex-col items-start gap-4 rounded-sm border border-hairline bg-cream-muted p-5 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <div class="flex items-start gap-3">
+        <span class="flex size-10 shrink-0 items-center justify-center rounded-sm bg-ink text-brand-gold">
+          <Icon name="lucide:star" class="size-5" aria-hidden="true" />
+        </span>
         <div>
-          <h3 class="font-display text-xl text-[#451400] uppercase tracking-wide">
-            ¿Vienes en familia o grupo?
-          </h3>
-          <p class="font-body text-xs sm:text-sm text-[#786259]">
-            Nuestra Picada Mixta y el Pollo Entero son ideales para compartir entre 3 a 5 personas.
-          </p>
+          <h3 class="font-display text-xl uppercase tracking-wide text-ink">¿Vienes en familia o grupo?</h3>
+          <p class="text-sm text-ash">Nuestra Picada Mixta y el Pollo Entero son ideales para compartir entre 3 a 5 personas.</p>
         </div>
       </div>
-
-      <a 
-        href="#menu" 
-        class="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-[#451400] hover:text-[#C60101] transition-colors border-b-2 border-[#451400] pb-0.5"
+      <a
+        href="#menu"
+        class="inline-flex min-h-11 items-center gap-2 text-sm font-extrabold uppercase tracking-wide text-ink underline decoration-2 underline-offset-4 transition-colors hover:text-brand-red"
       >
-        <span>Ver los 35+ platos de la carta</span>
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-        </svg>
+        Ver los {MENU_ITEMS.length} platos de la carta
+        <Icon name="lucide:arrow-right" class="size-4" aria-hidden="true" />
       </a>
     </div>
   </div>

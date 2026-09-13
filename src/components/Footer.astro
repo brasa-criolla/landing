@@ -1,133 +1,113 @@
 ---
 import { RESTAURANT_INFO } from '../data/restaurant-info';
+import { CATEGORIES, MENU_ITEMS } from '../data/menu';
 import logoImg from '../assets/logo-oficial.png';
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 
 const currentYear = new Date().getFullYear();
+const iconFor = (categoryId: string) => CATEGORIES.find((category) => category.id === categoryId)?.icon ?? 'lucide:utensils';
+
+const navLinks = [
+  { href: '#inicio', label: 'Inicio' },
+  { href: '#destacados', label: 'Platos Estrella' },
+  { href: '#menu', label: `Carta Completa (${MENU_ITEMS.length} Platos)` },
+  { href: '/carta', label: 'Carta Digital para la Mesa' },
+  { href: '#tradicion', label: 'Nuestra Tradición al Carbón' },
+  { href: '#contacto', label: 'Horarios y Ubicación' },
+];
+
+const specialties = [
+  { category: 'carnes', label: 'Carnes Asadas (Churrasco, Bistek, Lomo BBQ)' },
+  { category: 'pollo', label: 'Pollo al Carbón y Broaster Apanado' },
+  { category: 'pescado', label: 'Pescados (Mojarra Frita, Bagre, Trucha)' },
+  { category: 'arroz', label: 'Arroz con Pollo & Camarones' },
+  { category: 'bebidas', label: 'Limonada de Panela Campesina & Jugos Naturales' },
+];
 ---
 
-<footer class="bg-[#451400] text-[#FCF9EC] border-t border-black pt-16 pb-12">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-white/10">
-      <!-- Col 1: Brand & Bio (5 cols) -->
-      <div class="lg:col-span-5 space-y-4">
-        <a href="#top" class="inline-block group" aria-label="Volver al inicio">
-          <Image 
-            src={logoImg} 
-            alt="La Brasa Criolla — Asadero & Restaurante en La Plata, Huila" 
-            class="h-16 w-auto max-w-[220px] object-contain transition-transform duration-200 group-hover:scale-105"
-            height={130}
-          />
+<footer class="border-t border-black bg-ink pb-24 pt-14 text-cream sm:pb-12 sm:pt-16">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 gap-10 border-b border-white/10 pb-10 md:grid-cols-2 lg:grid-cols-12 lg:pb-12">
+      <div class="space-y-4 lg:col-span-5">
+        <a href="#top" class="inline-block rounded-sm bg-cream p-2" aria-label="Volver al inicio">
+          <Image src={logoImg} alt="" height={130} class="h-14 w-auto object-contain" />
         </a>
 
-        <p class="font-body text-xs sm:text-sm text-[#D4CBC7] max-w-sm leading-relaxed">
-          {RESTAURANT_INFO.description}
-        </p>
+        <p class="max-w-sm text-sm leading-relaxed text-hairline">{RESTAURANT_INFO.description}</p>
 
-        <div class="pt-2 text-xs text-[#FDDC32] font-semibold space-y-1">
-          <div class="flex items-center gap-1.5">
-            <Icon name="material-symbols:location-on-outline-rounded" class="w-4 h-4 flex-shrink-0" aria-hidden="true" />
-            <span>{RESTAURANT_INFO.address}, {RESTAURANT_INFO.neighborhood}</span>
-          </div>
-          <div>{RESTAURANT_INFO.city}, {RESTAURANT_INFO.department} · Colombia</div>
-        </div>
+        <address class="space-y-1 text-sm font-semibold not-italic text-brand-gold">
+          <span class="flex items-center gap-1.5">
+            <Icon name="lucide:map-pin" class="size-4 shrink-0" aria-hidden="true" />
+            {RESTAURANT_INFO.address}, {RESTAURANT_INFO.neighborhood}
+          </span>
+          <span class="block">{RESTAURANT_INFO.city}, {RESTAURANT_INFO.department} · Colombia</span>
+        </address>
 
-        <!-- Social Media Real Links -->
-        <div class="flex items-center gap-3 pt-2">
+        <div class="flex flex-wrap items-center gap-3">
           {RESTAURANT_INFO.socialLinks.map((social) => (
-            <a 
+            <a
               href={social.url}
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center justify-center w-8 h-8 rounded-[4px] bg-[#381200] hover:bg-[#C60101] text-white border border-white/15 transition-colors text-xs font-bold"
+              class="inline-flex size-11 items-center justify-center rounded-sm border border-white/15 bg-[#381200] text-white transition-colors hover:bg-brand-red"
               aria-label={social.name}
             >
-              <Icon name={`simple-icons:${social.icon}`} class="w-4 h-4" aria-hidden="true" />
+              <Icon name={`simple-icons:${social.icon}`} class="size-5" aria-hidden="true" />
             </a>
           ))}
-          <span class="text-xs text-[#D4CBC7] font-semibold">@restaurantelabrasacri0lla</span>
+          <span class="text-sm font-semibold text-hairline">@restaurantelabrasacri0lla</span>
         </div>
       </div>
 
-      <!-- Col 2: Fast Navigation (3 cols) -->
-      <div class="lg:col-span-3">
-        <h4 class="font-display text-xl uppercase tracking-wider text-[#FDDC32] mb-4">
-          Navegación
-        </h4>
-        <ul class="space-y-2.5 font-body text-xs sm:text-sm font-semibold text-[#D4CBC7]">
-          <li>
-            <a href="#inicio" class="hover:text-[#FDDC32] transition-colors">Inicio</a>
-          </li>
-          <li>
-            <a href="#destacados" class="hover:text-[#FDDC32] transition-colors">Platos Estrella</a>
-          </li>
-          <li>
-            <a href="#menu" class="hover:text-[#FDDC32] transition-colors">Carta Completa (35+ Platos)</a>
-          </li>
-          <li>
-            <a href="#tradicion" class="hover:text-[#FDDC32] transition-colors">Nuestra Tradición al Carbón</a>
-          </li>
-          <li>
-            <a href="#contacto" class="hover:text-[#FDDC32] transition-colors">Horarios y Ubicación</a>
-          </li>
+      <nav class="lg:col-span-3" aria-labelledby="footer-nav-title">
+        <h2 id="footer-nav-title" class="mb-2 font-display text-xl uppercase tracking-wider text-brand-gold">Navegación</h2>
+        <ul class="text-sm font-semibold text-hairline">
+          {navLinks.map((link) => (
+            <li>
+              <a href={link.href} class="inline-flex min-h-11 items-center transition-colors hover:text-brand-gold">{link.label}</a>
+            </li>
+          ))}
         </ul>
-      </div>
+      </nav>
 
-      <!-- Col 3: Categorías de la Carta (4 cols) -->
       <div class="lg:col-span-4">
-        <h4 class="font-display text-xl uppercase tracking-wider text-[#FDDC32] mb-4">
-          Especialidades del Menú
-        </h4>
-        <ul class="space-y-2.5 font-body text-xs sm:text-sm font-semibold text-[#D4CBC7]">
-          <li class="flex items-center gap-2">
-            <Icon name="material-symbols:outdoor-grill-outline-rounded" class="w-4 h-4 flex-shrink-0" aria-hidden="true" />
-            <span>Carnes Asadas (Churrasco, Bistek, Lomo BBQ)</span>
-          </li>
-          <li class="flex items-center gap-2">
-            <Icon name="material-symbols:dinner-dining-outline-rounded" class="w-4 h-4 flex-shrink-0" aria-hidden="true" />
-            <span>Pollo al Carbón y Broaster Apanado</span>
-          </li>
-          <li class="flex items-center gap-2">
-            <Icon name="material-symbols:set-meal-outline-rounded" class="w-4 h-4 flex-shrink-0" aria-hidden="true" />
-            <span>Pescados (Mojarra Frita, Bagre, Trucha)</span>
-          </li>
-          <li class="flex items-center gap-2">
-            <Icon name="material-symbols:rice-bowl-outline-rounded" class="w-4 h-4 flex-shrink-0" aria-hidden="true" />
-            <span>Arroz con Pollo & Camarones</span>
-          </li>
-          <li class="flex items-center gap-2">
-            <Icon name="material-symbols:local-drink-outline-rounded" class="w-4 h-4 flex-shrink-0" aria-hidden="true" />
-            <span>Limonada de Panela Campesina & Jugos Naturales</span>
-          </li>
+        <h2 class="mb-3 font-display text-xl uppercase tracking-wider text-brand-gold">Especialidades del Menú</h2>
+        <ul class="space-y-2.5 text-sm font-semibold text-hairline">
+          {specialties.map((item) => (
+            <li class="flex items-center gap-2">
+              <Icon name={iconFor(item.category)} class="size-4 shrink-0" aria-hidden="true" />
+              <span>{item.label}</span>
+            </li>
+          ))}
         </ul>
 
-        <div class="mt-6 pt-4 border-t border-white/10 space-y-1">
-          <span class="text-xs text-[#D4CBC7] block">Contacto Directo:</span>
-          <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4">
-            <a href={`tel:${RESTAURANT_INFO.phone}`} class="font-display text-xl text-white hover:text-[#FDDC32] transition-colors">
+        <div class="mt-6 border-t border-white/10 pt-4">
+          <span class="block text-sm text-hairline">Contacto Directo:</span>
+          <div class="flex flex-col sm:flex-row sm:items-center sm:gap-5">
+            <a
+              href={`tel:${RESTAURANT_INFO.phone}`}
+              class="inline-flex min-h-11 items-center text-base font-extrabold tabular-nums text-white transition-colors hover:text-brand-gold"
+            >
               {RESTAURANT_INFO.phoneDisplay}
             </a>
-            <span class="text-[#FDDC32] hidden sm:inline">·</span>
-            <a href="tel:6088371470" class="font-display text-xl text-white hover:text-[#FDDC32] transition-colors">
+            <a
+              href="tel:+576088371470"
+              class="inline-flex min-h-11 items-center text-base font-extrabold tabular-nums text-white transition-colors hover:text-brand-gold"
+            >
               Fijo: {RESTAURANT_INFO.phoneLandline}
             </a>
           </div>
-          <a href={`mailto:${RESTAURANT_INFO.email}`} class="text-xs text-[#D4CBC7] hover:underline block pt-0.5">
+          <a href={`mailto:${RESTAURANT_INFO.email}`} class="inline-flex min-h-11 items-center text-sm text-hairline hover:underline">
             {RESTAURANT_INFO.email}
           </a>
         </div>
       </div>
     </div>
 
-    <!-- Bottom Bar with Authentic Plateño Motto -->
-    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#D4CBC7]">
-      <p>
-        © {currentYear} <strong>La Brasa Criolla</strong>. Todos los derechos reservados. Barrio Páez · La Plata, Huila.
-      </p>
-      <p class="font-display text-base tracking-wider text-[#FDDC32] uppercase">
-        {RESTAURANT_INFO.motto}
-      </p>
+    <div class="flex flex-col items-center justify-between gap-4 pt-8 text-center text-xs text-hairline sm:flex-row sm:text-left">
+      <p>© {currentYear} <strong>La Brasa Criolla</strong>. Todos los derechos reservados. Barrio Páez · La Plata, Huila.</p>
+      <p class="font-display text-xl uppercase tracking-wider text-brand-gold">{RESTAURANT_INFO.motto}</p>
     </div>
   </div>
 </footer>

@@ -8,6 +8,13 @@ export interface ScheduleItem {
   hours: string;
 }
 
+/** days usa la numeración de Date#getDay (0 = domingo). Horas en formato 24h, zona America/Bogota. */
+export interface OpeningHours {
+  days: number[];
+  opens: string;
+  closes: string;
+}
+
 export interface RestaurantInfo {
   name: string;
   tagline: string;
@@ -33,6 +40,7 @@ export interface RestaurantInfo {
   motto: string;
   paymentMethods: string[];
   schedule: ScheduleItem[];
+  openingHours: OpeningHours[];
   socialLinks: {
     name: string;
     url: string;
@@ -73,6 +81,11 @@ export const RESTAURANT_INFO: RestaurantInfo = {
     { days: "Martes a Viernes", hours: "9:00 a.m. – 7:00 p.m." },
     { days: "Sábados y Domingos", hours: "8:30 a.m. – 9:00 p.m." },
     { days: "Festivos", hours: "10:00 a.m. – 2:30 p.m." }
+  ],
+  openingHours: [
+    { days: [1], opens: "11:30", closes: "19:00" },
+    { days: [2, 3, 4, 5], opens: "09:00", closes: "19:00" },
+    { days: [6, 0], opens: "08:30", closes: "21:00" }
   ],
   socialLinks: [
     { name: "WhatsApp", url: "https://wa.me/573133593955", icon: "whatsapp" },

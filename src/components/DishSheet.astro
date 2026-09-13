@@ -1,0 +1,131 @@
+---
+import { MENU_ITEMS } from '../data/menu';
+import { RESTAURANT_INFO } from '../data/restaurant-info';
+import { buildWhatsAppLink, formatCOP } from '../lib/format';
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  allowOrdering: boolean;
+}
+
+const { allowOrdering } = Astro.props;
+
+const orderUrl = (name: string, price: number) =>
+  buildWhatsAppLink(
+    RESTAURANT_INFO.whatsapp,
+    `¡Hola La Brasa Criolla! Vengo de la página web y deseo ordenar: *${name}* (${formatCOP(price)}). ¿Tienen disponibilidad?`,
+  );
+---
+
+<dialog id="dish-sheet" class="dish-sheet">
+  <button
+    type="button"
+    data-dish-close
+    class="absolute right-3 top-3 z-10 inline-flex size-11 items-center justify-center rounded-sm bg-cream/95 text-ink shadow-md"
+    aria-label="Cerrar"
+  >
+    <Icon name="lucide:x" class="size-5" aria-hidden="true" />
+  </button>
+  <div data-dish-sheet-body></div>
+  {allowOrdering && (
+    <div class="px-5 pb-6">
+      <a
+        data-dish-order
+        href={buildWhatsAppLink(RESTAURANT_INFO.whatsapp, RESTAURANT_INFO.whatsappDefaultMessage)}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex h-12 w-full items-center justify-center gap-2 rounded-sm bg-brand-green text-sm font-extrabold uppercase tracking-wide text-white transition-colors hover:bg-brand-green-dark"
+      >
+        <Icon name="simple-icons:whatsapp" class="size-5" aria-hidden="true" />
+        Pedir a domicilio por WhatsApp
+      </a>
+    </div>
+  )}
+</dialog>
+
+{MENU_ITEMS.map((dish) => (
+  <template data-dish-template={dish.id} data-order-url={allowOrdering ? orderUrl(dish.name, dish.price) : undefined}>
+    {dish.image && (
+      <Image
+        src={dish.image}
+        alt={`${dish.name} — La Brasa Criolla, La Plata (Huila)`}
+        widths={[480, 720, 960]}
+        sizes="(min-width: 640px) 512px, 100vw"
+        loading="eager"
+        decoding="async"
+        class="aspect-[4/3] w-full bg-cream-muted object-cover"
+      />
+    )}
+    <div class:list={['px-5 pt-4', allowOrdering ? 'pb-5' : 'pb-8']}>
+      <div class="flex items-start justify-between gap-4">
+        <h2 data-dish-title class="font-display text-[1.75rem] uppercase leading-none tracking-wide text-ink">{dish.name}</h2>
+        <p class="shrink-0 whitespace-nowrap pt-1 text-xl font-extrabold tabular-nums text-ink">{formatCOP(dish.price)}</p>
+      </div>
+      {dish.badge && (
+        <p class="mt-2 inline-block rounded-sm bg-brand-gold px-2 py-0.5 text-xs font-extrabold uppercase tracking-wide text-ink">
+          {dish.badge}
+        </p>
+      )}
+      {dish.description && <p class="mt-3 text-base leading-relaxed text-ink-soft">{dish.description}</p>}
+      <h3 class="mt-5 text-xs font-extrabold uppercase tracking-wider text-ash">Incluye</h3>
+      <ul class="mt-2 flex flex-wrap gap-2">
+        {dish.accompaniments.map((item) => (
+          <li class="rounded-sm border border-hairline bg-white px-2.5 py-1 text-sm font-semibold text-ink">{item}</li>
+        ))}
+      </ul>
+    </div>
+  </template>
+))}
+
+<script>
+  const sheet = document.getElementById('dish-sheet') as HTMLDialogElement | null;
+  const sheetBody = sheet?.querySelector<HTMLElement>('[data-dish-sheet-body]');
+  const orderLink = sheet?.querySelector<HTMLAnchorElement>('[data-dish-order]');
+
+  if (sheet && sheetBody) {
+    let sheetInHistory = false;
+    let scrollBeforeOpen = 0;
+
+    document.addEventListener('click', (event) => {
+      const trigger = (event.target as Element).closest<HTMLElement>('[data-dish-open]');
+      const template =
+        trigger && document.querySelector<HTMLTemplateElement>(`template[data-dish-template="${trigger.dataset.dishOpen}"]`);
+      if (!template) return;
+
+      sheetBody.replaceChildren(template.content.cloneNode(true));
+      const title = sheetBody.querySelector('[data-dish-title]');
+      if (title) {
+        title.id = 'dish-sheet-title';
+        sheet.setAttribute('aria-labelledby', title.id);
+      }
+      if (orderLink && template.dataset.orderUrl) orderLink.href = template.dataset.orderUrl;
+
+      sheet.showModal();
+      sheet.scrollTop = 0;
+
+      // Android's back button should close the sheet instead of leaving the menu. Scroll restoration stays
+      // manual from here on: Chrome applies it after popstate, so re-enabling it jumps to a stale anchor position.
+      scrollBeforeOpen = window.scrollY;
+      history.scrollRestoration = 'manual';
+      history.pushState({ dishSheet: true }, '');
+      sheetInHistory = true;
+    });
+
+    sheet.addEventListener('click', (event) => {
+      const target = event.target as Element;
+      if (target === sheet || target.closest('[data-dish-close]')) sheet.close();
+    });
+
+    sheet.addEventListener('close', () => {
+      if (sheetInHistory) history.back();
+    });
+
+    window.addEventListener('popstate', () => {
+      if (!sheetInHistory) return;
+      sheetInHistory = false;
+      if (sheet.open) sheet.close();
+      window.scrollTo({ top: scrollBeforeOpen, behavior: 'instant' });
+    });
+  }
+</script>

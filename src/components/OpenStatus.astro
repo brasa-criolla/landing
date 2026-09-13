@@ -1,0 +1,92 @@
+---
+import { RESTAURANT_INFO } from '../data/restaurant-info';
+
+interface Props {
+  class?: string;
+  compact?: boolean;
+}
+
+const { class: className, compact = false } = Astro.props;
+---
+
+<span
+  class:list={['group inline-flex items-center gap-2', className]}
+  data-open-status
+  data-compact={compact ? '' : undefined}
+  data-hours={JSON.stringify(RESTAURANT_INFO.openingHours)}
+>
+  <span
+    class="size-2 shrink-0 rounded-full bg-current opacity-60 group-data-[state=closed]:bg-brand-red group-data-[state=closed]:opacity-100 group-data-[state=open]:bg-open group-data-[state=open]:opacity-100"
+    aria-hidden="true"
+  ></span>
+  <span data-open-status-text>Abierto todos los días</span>
+</span>
+
+<script>
+  type OpeningHours = { days: number[]; opens: string; closes: string };
+
+  const WEEKDAY_INDEX: Record<string, number> = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+  const WEEKDAY_NAMES = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+
+  const toMinutes = (time: string) => {
+    const [hours, minutes] = time.split(':').map(Number);
+    return hours * 60 + minutes;
+  };
+
+  const formatTime = (time: string) => {
+    const [hours, minutes] = time.split(':').map(Number);
+    return `${hours % 12 || 12}:${String(minutes).padStart(2, '0')} ${hours < 12 ? 'a.m.' : 'p.m.'}`;
+  };
+
+  function nowInBogota() {
+    const parts = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/Bogota',
+      weekday: 'short',
+      hour: '2-digit',
+      minute: '2-digit',
+      hourCycle: 'h23',
+    }).formatToParts(new Date());
+    const part = (type: string) => parts.find((p) => p.type === type)?.value ?? '0';
+    return { day: WEEKDAY_INDEX[part('weekday')], minutes: Number(part('hour')) * 60 + Number(part('minute')) };
+  }
+
+  function describe(schedule: OpeningHours[], compact: boolean) {
+    const { day, minutes } = nowInBogota();
+    const today = schedule.find((entry) => entry.days.includes(day));
+
+    if (today && minutes >= toMinutes(today.opens) && minutes < toMinutes(today.closes)) {
+      const closes = formatTime(today.closes);
+      return { state: 'open', text: compact ? `Abierto · cierra ${closes}` : `Abierto ahora · hasta las ${closes}` };
+    }
+
+    if (today && minutes < toMinutes(today.opens)) {
+      const opens = formatTime(today.opens);
+      return { state: 'closed', text: compact ? `Cerrado · abre ${opens}` : `Cerrado · abre hoy a las ${opens}` };
+    }
+
+    for (let offset = 1; offset <= 7; offset++) {
+      const nextDay = (day + offset) % 7;
+      const next = schedule.find((entry) => entry.days.includes(nextDay));
+      if (next) {
+        const when = offset === 1 ? 'mañana' : `el ${WEEKDAY_NAMES[nextDay]}`;
+        const opens = formatTime(next.opens);
+        return { state: 'closed', text: compact ? `Cerrado · abre ${when} ${opens}` : `Cerrado · abre ${when} a las ${opens}` };
+      }
+    }
+
+    return null;
+  }
+
+  function render() {
+    document.querySelectorAll<HTMLElement>('[data-open-status]').forEach((element) => {
+      const status = describe(JSON.parse(element.dataset.hours ?? '[]'), 'compact' in element.dataset);
+      const text = element.querySelector('[data-open-status-text]');
+      if (!status || !text) return;
+      element.dataset.state = status.state;
+      text.textContent = status.text;
+    });
+  }
+
+  render();
+  setInterval(render, 60_000);
+</script>

@@ -8,9 +8,9 @@ importers:
 
   .:
     dependencies:
-      '@iconify-json/material-symbols':
-        specifier: ^1.2.92
-        version: 1.2.92
+      '@iconify-json/lucide':
+        specifier: ^1.2.131
+        version: 1.2.131
       '@iconify-json/simple-icons':
         specifier: ^1.2.95
         version: 1.2.95
@@ -364,8 +364,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@iconify-json/material-symbols@1.2.92':
-    resolution: {integrity: sha512-8DQClJc/77mpdlpNiWyjGXpx81YZuoNklrWNe/6K2rJtLTPU/7kRA7F/F8l5Q0a5yFvNlWuMReGB0m4CQ8cepA==}
+  '@iconify-json/lucide@1.2.131':
+    resolution: {integrity: sha512-2h0kGA4utt2OIqTdDHPs7+ft0lK8fRRNx1ItsvUaIlkTKaNc/ADT3F9j2F18Qevm9sWfKlAghOUmxmP32inTPg==}
 
   '@iconify-json/simple-icons@1.2.95':
     resolution: {integrity: sha512-QwWgcoiL+eNCD38QM0OStFVFoOgDvzeHrcwMAvATvcFl0VvMEtED92qp3K3juS0H6RZ9BGUlgq9mODPwNWkjJg==}
@@ -1885,7 +1885,7 @@ snapshots:
   '@esbuild/win32-x64@0.28.2':
     optional: true
 
-  '@iconify-json/material-symbols@1.2.92':
+  '@iconify-json/lucide@1.2.131':
     dependencies:
       '@iconify/types': 2.0.0
 

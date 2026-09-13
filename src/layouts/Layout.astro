@@ -1,6 +1,8 @@
 ---
 import '../styles/global.css';
+import { Font } from 'astro:assets';
 import Navbar from '../components/Navbar.astro';
+import CartaHeader from '../components/CartaHeader.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 import { RESTAURANT_INFO, SITE_URL } from '../data/restaurant-info';
@@ -9,143 +11,125 @@ import { CATEGORIES, MENU_ITEMS } from '../data/menu';
 interface Props {
   title?: string;
   description?: string;
+  canonicalPath?: string;
+  variant?: 'site' | 'carta';
 }
 
 const {
   title = `${RESTAURANT_INFO.name} — ${RESTAURANT_INFO.tagline} | La Plata, Huila`,
-  description = RESTAURANT_INFO.description
+  description = RESTAURANT_INFO.description,
+  canonicalPath = '/',
+  variant = 'site',
 } = Astro.props;
+
+const canonicalUrl = `${SITE_URL}${canonicalPath}`;
+const ogImage = `${SITE_URL}/og-image.jpg`;
+const SCHEMA_DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Restaurant',
+  name: RESTAURANT_INFO.name,
+  alternateName: 'Restaurante y Asadero La Brasa Criolla',
+  image: ogImage,
+  description: RESTAURANT_INFO.description,
+  servesCuisine: ['Colombiana', 'Asados al Carbón', 'Pollo Asado', 'Pescados'],
+  priceRange: '$$',
+  currenciesAccepted: 'COP',
+  paymentAccepted: 'Cash, Credit Card, Debit Card, Nequi, Daviplata, Bancolombia',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: `${RESTAURANT_INFO.address}, ${RESTAURANT_INFO.neighborhood}`,
+    addressLocality: RESTAURANT_INFO.city,
+    addressRegion: RESTAURANT_INFO.department,
+    postalCode: '415060',
+    addressCountry: 'CO',
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: 2.3907, longitude: -75.8927 },
+  url: `${SITE_URL}/`,
+  telephone: [RESTAURANT_INFO.phone, '+576088371470'],
+  email: RESTAURANT_INFO.email,
+  openingHoursSpecification: RESTAURANT_INFO.openingHours.map((entry) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: entry.days.map((day) => SCHEMA_DAYS[day]),
+    opens: entry.opens,
+    closes: entry.closes,
+  })),
+  sameAs: RESTAURANT_INFO.socialLinks.map((social) => social.url),
+  hasMenu: {
+    '@type': 'Menu',
+    name: `Carta de ${RESTAURANT_INFO.name}`,
+    url: `${SITE_URL}/carta`,
+    hasMenuSection: CATEGORIES.map((category) => ({
+      '@type': 'MenuSection',
+      name: category.name,
+      description: category.shortDescription,
+      hasMenuItem: MENU_ITEMS.filter((item) => item.category === category.id).map((item) => ({
+        '@type': 'MenuItem',
+        name: item.name,
+        description: item.description,
+        offers: { '@type': 'Offer', price: item.price, priceCurrency: 'COP' },
+      })),
+    })),
+  },
+};
 ---
 
 <!doctype html>
-<html lang="es" class="scroll-smooth">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Official Favicons generated from round logo -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Primary SEO Meta Tags -->
     <title>{title}</title>
-    <link rel="canonical" href={`${SITE_URL}/`} />
-    <meta name="title" content={title} />
+    <link rel="canonical" href={canonicalUrl} />
     <meta name="description" content={description} />
-    <meta name="keywords" content="asadero la plata huila, restaurante la plata huila, pollo asado huila, carnes al carbon, comida tipica huila, picada mixta, la brasa criolla, barrio paez la plata" />
+    <meta
+      name="keywords"
+      content="asadero la plata huila, restaurante la plata huila, pollo asado huila, carnes al carbon, comida tipica huila, picada mixta, la brasa criolla, barrio paez la plata"
+    />
     <meta name="author" content="La Brasa Criolla" />
-    <meta name="theme-color" content="#451400" />
+    <meta name="theme-color" content="#FCF9EC" />
 
-    <!-- Open Graph / Facebook / WhatsApp (Rich Social Card) -->
-    <!-- og:type "website" en vez de "restaurant": ese tipo requiere registrar la página
-         como Open Graph Object en Facebook o la mayoría de parsers (WhatsApp, Slack,
-         LinkedIn) lo ignoran y caen a un fallback sin vista previa. -->
+    <!-- og:type "website" instead of "restaurant": that type needs a registered Facebook Open Graph object, and WhatsApp/Slack/LinkedIn ignore it. -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={`${SITE_URL}/`} />
+    <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={`${SITE_URL}/og-image.jpg`} />
+    <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="es_CO" />
     <meta property="og:site_name" content={RESTAURANT_INFO.name} />
 
-    <!-- Twitter Card -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={`${SITE_URL}/og-image.jpg`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
 
-    <!-- Structured Data (Schema.org / JSON-LD) for Local SEO & Google Maps -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Restaurant",
-      "name": RESTAURANT_INFO.name,
-      "alternateName": "Restaurante y Asadero La Brasa Criolla",
-      "image": `${SITE_URL}/og-image.jpg`,
-      "description": RESTAURANT_INFO.description,
-      "servesCuisine": ["Colombiana", "Asados al Carbón", "Pollo Asado", "Pescados"],
-      "priceRange": "$$",
-      "currenciesAccepted": "COP",
-      "paymentAccepted": "Cash, Credit Card, Debit Card, Nequi, Daviplata, Bancolombia",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": `${RESTAURANT_INFO.address}, ${RESTAURANT_INFO.neighborhood}`,
-        "addressLocality": RESTAURANT_INFO.city,
-        "addressRegion": RESTAURANT_INFO.department,
-        "postalCode": "415060",
-        "addressCountry": "CO"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 2.3907,
-        "longitude": -75.8927
-      },
-      "url": `${SITE_URL}/`,
-      "telephone": [RESTAURANT_INFO.phone, "+576088371470"],
-      "email": RESTAURANT_INFO.email,
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday"],
-          "opens": "11:30",
-          "closes": "19:00"
-        },
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday"],
-          "opens": "09:00",
-          "closes": "19:00"
-        },
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Saturday", "Sunday"],
-          "opens": "08:30",
-          "closes": "21:00"
-        }
-      ],
-      "sameAs": RESTAURANT_INFO.socialLinks.map(s => s.url),
-      "hasMenu": {
-        "@type": "Menu",
-        "name": `Carta de ${RESTAURANT_INFO.name}`,
-        "url": `${SITE_URL}/#menu`,
-        "hasMenuSection": CATEGORIES.map((cat) => ({
-          "@type": "MenuSection",
-          "name": cat.name,
-          "description": cat.shortDescription,
-          "hasMenuItem": MENU_ITEMS.filter((item) => item.category === cat.id).map((item) => ({
-            "@type": "MenuItem",
-            "name": item.name,
-            "description": item.description,
-            "offers": {
-              "@type": "Offer",
-              "price": item.price,
-              "priceCurrency": "COP"
-            }
-          }))
-        }))
-      }
-    })} />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
-    <!-- Google Fonts Preconnect & Loading: Bebas Neue + Nunito -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link 
-      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap" 
-      rel="stylesheet" 
-    />
+    <Font cssVariable="--font-nunito" preload />
+    <Font cssVariable="--font-bebas" preload />
   </head>
-  <body class="min-h-screen flex flex-col bg-[#FCF9EC] text-[#451400] selection:bg-[#451400] selection:text-white antialiased">
+  <body class="flex min-h-dvh flex-col bg-cream text-ink antialiased" data-variant={variant}>
     <div id="top"></div>
-    <Navbar />
-    
+    {variant === 'carta' ? <CartaHeader /> : <Navbar />}
+
     <main class="flex-grow">
       <slot />
     </main>
 
-    <WhatsAppButton />
-    <Footer />
+    {variant === 'site' && (
+      <>
+        <WhatsAppButton />
+        <Footer />
+      </>
+    )}
   </body>
 </html>

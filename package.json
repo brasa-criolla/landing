@@ -12,7 +12,7 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@iconify-json/material-symbols": "^1.2.92",
+    "@iconify-json/lucide": "^1.2.131",
     "@iconify-json/simple-icons": "^1.2.95",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.3.2",

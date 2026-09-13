@@ -1,0 +1,52 @@
+---
+import Layout from '../layouts/Layout.astro';
+import MenuList from '../components/MenuList.astro';
+import DishTile from '../components/DishTile.astro';
+import { Icon } from 'astro-icon/components';
+import { MENU_ITEMS } from '../data/menu';
+import { RESTAURANT_INFO } from '../data/restaurant-info';
+
+const featuredDishes = MENU_ITEMS.filter((dish) => dish.featured);
+---
+
+<Layout
+  variant="carta"
+  canonicalPath="/carta"
+  title={`Carta y precios | ${RESTAURANT_INFO.name} — La Plata, Huila`}
+  description={`Menú completo de ${RESTAURANT_INFO.name} con precios: ${MENU_ITEMS.length} opciones entre carnes al carbón, pollo asado y broaster, pescados, arroces y bebidas. ${RESTAURANT_INFO.address}, La Plata, Huila.`}
+>
+  <div class="mx-auto max-w-3xl px-4 pb-16">
+    <div class="pb-3 pt-6">
+      <p class="text-xs font-extrabold uppercase tracking-widest text-brand-red">Asadero & Restaurante · La Plata, Huila</p>
+      <h1 class="mt-1 font-display text-[2.75rem] uppercase leading-none tracking-wide text-ink">Nuestra carta</h1>
+      <p class="mt-2 text-base text-ash">Todo se prepara al momento de tu pedido. Toca un plato para ver qué incluye.</p>
+    </div>
+
+    <section aria-labelledby="mas-pedido-title" class="pt-3">
+      <h2 id="mas-pedido-title" class="text-xs font-extrabold uppercase tracking-widest text-ash">Lo más pedido</h2>
+      <ul class="no-scrollbar -mx-4 mt-3 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 pb-3">
+        {featuredDishes.map((dish, index) => (
+          <li class="w-[64%] shrink-0 snap-start sm:w-60">
+            <DishTile dish={dish} headingLevel="h3" eager={index < 2} />
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <div class="mt-2">
+      <MenuList headingLevel="h2" allowOrdering={false} />
+    </div>
+
+    <footer class="mt-12 space-y-3 border-t border-hairline pt-6 text-sm text-ash">
+      <p>
+        Todos los precios están expresados en Pesos Colombianos (COP) e incluyen los impuestos aplicables. Los acompañamientos
+        pueden variar según disponibilidad del día.
+      </p>
+      <p>{RESTAURANT_INFO.address}, {RESTAURANT_INFO.neighborhood} · {RESTAURANT_INFO.city}, {RESTAURANT_INFO.department}</p>
+      <a href="/" class="inline-flex min-h-11 items-center gap-1.5 font-bold text-ink underline underline-offset-4">
+        Conoce nuestra historia, horarios y domicilios
+        <Icon name="lucide:arrow-right" class="size-4" aria-hidden="true" />
+      </a>
+    </footer>
+  </div>
+</Layout>

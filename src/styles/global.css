@@ -1,16 +1,18 @@
 @import "tailwindcss";
 
-@theme {
-  --font-display: "Bebas Neue", "Helvetica Neue", sans-serif;
-  --font-body: "Nunito", "Helvetica Neue", sans-serif;
+@theme inline {
+  --font-display: var(--font-bebas);
+  --font-body: var(--font-nunito);
+}
 
-  /* Brasa Criolla color palette */
+@theme {
   --color-ink: #451400;
   --color-ink-soft: #6b321b;
   --color-ash: #786259;
   --color-hairline: #d4cbc7;
-  --color-bg-cream: #fcf9ec;
+  --color-cream: #fcf9ec;
   --color-cream-muted: #f4efe0;
+  --color-open: #1a8a45;
 
   --color-brand-red: #c60101;
   --color-brand-red-dark: #8f0000;
@@ -23,63 +25,112 @@
   --radius-md: 12px;
 }
 
-/* Base styles */
+@utility no-scrollbar {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+:root {
+  --header-h: 4rem;
+}
+
+@media (min-width: 40rem) {
+  :root {
+    --header-h: 5rem;
+  }
+}
+
+body[data-variant="carta"] {
+  --header-h: 3.5rem;
+}
+
 html {
   scroll-behavior: smooth;
-  font-family: var(--font-body);
-  background-color: #fcf9ec;
-  color: #451400;
+  font-family: var(--font-nunito);
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  -webkit-tap-highlight-color: transparent;
+  text-size-adjust: 100%;
+}
+
+html:has(dialog[open]) {
+  overflow: hidden;
 }
 
 body {
   margin: 0;
-  padding: 0;
-  overflow-x: hidden;
+  /* clip, not hidden: hidden turns body into a scroll container and breaks the sticky header and menu nav. */
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom scrollbar matching burnt-umber foil palette */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #f4efe0;
-}
-::-webkit-scrollbar-thumb {
-  background: #786259;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #451400;
+:focus-visible {
+  outline: 3px solid var(--color-brand-red);
+  outline-offset: 2px;
 }
 
-/* Text selection */
 ::selection {
-  background-color: #451400;
-  color: #ffffff;
+  background-color: var(--color-ink);
+  color: #fff;
 }
 
-/* Hairline border and button utilities */
-.border-hairline {
-  border-color: #d4cbc7;
+.dish-sheet {
+  inset: auto 0 0;
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  max-height: 92dvh;
+  padding: 0;
+  border: 0;
+  border-radius: 1rem 1rem 0 0;
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
-.border-ink-hairline {
-  border-color: rgba(69, 20, 0, 0.18);
+.dish-sheet::backdrop {
+  background-color: rgb(28 8 0 / 0.6);
 }
 
-.font-display {
-  font-family: var(--font-display);
+.dish-sheet[open] {
+  animation: sheet-up 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.font-body {
-  font-family: var(--font-body);
+@media (min-width: 40rem) {
+  .dish-sheet {
+    inset: 0;
+    margin: auto;
+    max-width: 32rem;
+    max-height: 88dvh;
+    border-radius: var(--radius-md);
+  }
+
+  .dish-sheet[open] {
+    animation-name: sheet-in;
+  }
 }
 
-/* Micro-pulso suave para CTA de WhatsApp */
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes sheet-in {
+  from {
+    opacity: 0;
+    transform: translateY(1rem) scale(0.98);
+  }
+}
+
 @keyframes soft-pulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
     box-shadow: 0 4px 14px rgba(2, 125, 37, 0.4);
   }
@@ -91,4 +142,18 @@ body {
 
 .pulse-whatsapp {
   animation: soft-pulse 3s infinite ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

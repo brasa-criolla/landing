@@ -1,0 +1,46 @@
+---
+import type { Dish } from '../data/menu';
+import { formatCOP } from '../lib/format';
+import { Image } from 'astro:assets';
+
+interface Props {
+  dish: Dish;
+  headingLevel: 'h2' | 'h3';
+  eager?: boolean;
+}
+
+const { dish, headingLevel, eager = false } = Astro.props;
+const Heading = headingLevel;
+---
+
+<article class="relative flex h-full flex-col overflow-hidden rounded-sm border border-hairline bg-white">
+  <div class="relative bg-cream-muted">
+    {dish.image && (
+      <Image
+        src={dish.image}
+        alt=""
+        widths={[320, 480, 640]}
+        sizes="(min-width: 1024px) 300px, (min-width: 640px) 45vw, 80vw"
+        loading={eager ? 'eager' : 'lazy'}
+        fetchpriority={eager ? 'high' : undefined}
+        decoding="async"
+        class="aspect-[4/3] w-full object-cover"
+      />
+    )}
+    {dish.badge && (
+      <span class="absolute left-2.5 top-2.5 rounded-sm bg-ink px-2 py-1 text-xs font-extrabold uppercase tracking-wide text-brand-gold">
+        {dish.badge}
+      </span>
+    )}
+  </div>
+  <div class="flex flex-1 flex-col justify-between gap-1.5 p-3.5">
+    <Heading class="font-display text-[1.375rem] uppercase leading-[1.05] tracking-wide text-ink">{dish.name}</Heading>
+    <p class="whitespace-nowrap font-extrabold tabular-nums text-ink">{formatCOP(dish.price)}</p>
+  </div>
+  <button
+    type="button"
+    class="absolute inset-0 transition-colors active:bg-ink/5"
+    data-dish-open={dish.id}
+    aria-label={`Ver detalle de ${dish.name}`}
+  ></button>
+</article>

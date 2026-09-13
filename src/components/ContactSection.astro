@@ -1,149 +1,160 @@
 ---
 import { RESTAURANT_INFO } from '../data/restaurant-info';
 import { Icon } from 'astro-icon/components';
+import OpenStatus from './OpenStatus.astro';
+
+const payments = [
+  { label: 'Efectivo', icon: 'lucide:banknote' },
+  { label: 'Tarjetas Débito / Crédito', icon: 'lucide:credit-card' },
+  { label: 'Nequi / Bancolombia / Daviplata', icon: 'lucide:smartphone' },
+];
 ---
 
-<section id="contacto" class="py-16 sm:py-24 bg-[#FCF9EC]">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Header -->
-    <div class="text-center max-w-3xl mx-auto mb-14">
-      <span class="text-xs font-extrabold uppercase tracking-widest text-[#C60101] block mb-2">
-        Punto Físico en Barrio Páez
-      </span>
-      <h2 class="font-display text-4xl sm:text-6xl text-[#451400] uppercase tracking-wide leading-none mb-4">
+<section id="contacto" class="bg-cream py-14 sm:py-24" aria-labelledby="contacto-title">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto mb-10 max-w-3xl text-center sm:mb-14">
+      <p class="mb-2 text-xs font-extrabold uppercase tracking-widest text-brand-red">Punto Físico en Barrio Páez</p>
+      <h2 id="contacto-title" class="font-display text-4xl uppercase leading-none tracking-wide text-ink sm:text-6xl">
         Ubicación, Horarios & Domicilios en La Plata
       </h2>
-      <p class="font-body text-sm sm:text-base text-[#786259]">
-        Encuéntranos en la Cra. 4 #6-64 en La Plata, Huila, o pide tu domicilio por WhatsApp. Atendemos todos los días con el mejor ambiente familiar.
+      <p class="mt-4 text-base text-ash">
+        Encuéntranos en la Cra. 4 #6-64 en La Plata, Huila, o pide tu domicilio por WhatsApp. Atendemos todos los días con el
+        mejor ambiente familiar.
       </p>
     </div>
 
-    <!-- 2-Column Layout: Info Cards & Map -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-      <!-- Left Column: Location & Hours -->
-      <div class="lg:col-span-5 flex flex-col gap-6">
-        <!-- Address & Contact Card -->
-        <div class="bg-white rounded-[4px] border border-[#D4CBC7] p-6 shadow-sm">
-          <h3 class="font-display text-2xl text-[#451400] uppercase mb-4 flex items-center gap-2 border-b border-[#D4CBC7] pb-3">
-            <svg class="w-6 h-6 text-[#C60101]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            <span>Dirección & Contacto</span>
+    <div class="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-12 lg:gap-8">
+      <div class="flex flex-col gap-6 lg:col-span-5">
+        <div class="rounded-sm border border-hairline bg-white p-5 shadow-sm sm:p-6">
+          <h3 class="mb-4 flex items-center gap-2 border-b border-hairline pb-3 font-display text-[1.75rem] uppercase text-ink">
+            <Icon name="lucide:map-pin" class="size-6 text-brand-red" aria-hidden="true" />
+            Dirección & Contacto
           </h3>
 
-          <div class="space-y-4 font-body text-sm text-[#451400]">
+          <div class="space-y-4 text-sm text-ink">
             <div>
-              <span class="text-xs font-bold uppercase tracking-wider text-[#786259] block">Punto Físico:</span>
+              <span class="block text-xs font-bold uppercase tracking-wider text-ash">Punto Físico:</span>
               <p class="text-base font-bold text-[#171717]">{RESTAURANT_INFO.address}, {RESTAURANT_INFO.neighborhood}</p>
-              <p class="text-xs text-[#786259]">{RESTAURANT_INFO.city}, {RESTAURANT_INFO.department} · Colombia</p>
+              <p class="text-sm text-ash">{RESTAURANT_INFO.city}, {RESTAURANT_INFO.department} · Colombia</p>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="grid grid-cols-1 gap-x-3 sm:grid-cols-2">
               <div>
-                <span class="text-xs font-bold uppercase tracking-wider text-[#786259] block">Celular / WhatsApp:</span>
-                <a href={`https://wa.me/${RESTAURANT_INFO.whatsapp}`} class="text-base font-bold text-[#C60101] hover:underline">
+                <span class="block text-xs font-bold uppercase tracking-wider text-ash">Celular / WhatsApp:</span>
+                <a
+                  href={`https://wa.me/${RESTAURANT_INFO.whatsapp}`}
+                  class="inline-flex min-h-11 items-center text-base font-bold text-brand-red hover:underline"
+                >
                   {RESTAURANT_INFO.phoneDisplay}
                 </a>
               </div>
               <div>
-                <span class="text-xs font-bold uppercase tracking-wider text-[#786259] block">Teléfono Fijo:</span>
-                <a href="tel:6088371470" class="text-base font-bold text-[#451400] hover:underline">
+                <span class="block text-xs font-bold uppercase tracking-wider text-ash">Teléfono Fijo:</span>
+                <a href="tel:+576088371470" class="inline-flex min-h-11 items-center text-base font-bold text-ink hover:underline">
                   {RESTAURANT_INFO.phoneLandline}
                 </a>
               </div>
             </div>
 
             <div>
-              <span class="text-xs font-bold uppercase tracking-wider text-[#786259] block">Correo Electrónico:</span>
-              <a href={`mailto:${RESTAURANT_INFO.email}`} class="text-sm font-semibold text-[#451400] hover:text-[#C60101]">
+              <span class="block text-xs font-bold uppercase tracking-wider text-ash">Correo Electrónico:</span>
+              <a
+                href={`mailto:${RESTAURANT_INFO.email}`}
+                class="inline-flex min-h-11 items-center break-all text-base font-semibold text-ink hover:text-brand-red"
+              >
                 {RESTAURANT_INFO.email}
               </a>
             </div>
 
-            <div class="pt-2 border-t border-[#D4CBC7]/40">
-              <span class="text-xs font-bold uppercase tracking-wider text-[#786259] block mb-1.5">Medios de Pago Aceptados:</span>
-              <div class="flex flex-wrap gap-1.5">
-                <span class="inline-flex items-center gap-1 bg-[#FCF9EC] border border-[#D4CBC7] px-2 py-0.5 rounded-[4px] text-[11px] font-bold text-[#451400]">
-                  <Icon name="material-symbols:payments-outline-rounded" class="w-3.5 h-3.5" aria-hidden="true" />
-                  Efectivo
-                </span>
-                <span class="inline-flex items-center gap-1 bg-[#FCF9EC] border border-[#D4CBC7] px-2 py-0.5 rounded-[4px] text-[11px] font-bold text-[#451400]">
-                  <Icon name="material-symbols:credit-card-outline" class="w-3.5 h-3.5" aria-hidden="true" />
-                  Tarjetas Débito / Crédito
-                </span>
-                <span class="inline-flex items-center gap-1 bg-[#FCF9EC] border border-[#D4CBC7] px-2 py-0.5 rounded-[4px] text-[11px] font-bold text-[#451400]">
-                  <Icon name="material-symbols:smartphone-outline" class="w-3.5 h-3.5" aria-hidden="true" />
-                  Nequi / Bancolombia / Daviplata
-                </span>
-              </div>
+            <div class="border-t border-hairline/40 pt-3">
+              <span class="mb-2 block text-xs font-bold uppercase tracking-wider text-ash">Medios de Pago Aceptados:</span>
+              <ul class="flex flex-wrap gap-2">
+                {payments.map((payment) => (
+                  <li class="inline-flex items-center gap-1.5 rounded-sm border border-hairline bg-cream px-2.5 py-1 text-sm font-bold text-ink">
+                    <Icon name={payment.icon} class="size-4" aria-hidden="true" />
+                    {payment.label}
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            <div class="pt-2">
-              <a 
-                href={RESTAURANT_INFO.googleMapsDirectionsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="w-full inline-flex items-center justify-center gap-2 bg-[#451400] hover:bg-[#C60101] text-white py-2.5 px-4 rounded-[4px] text-xs font-bold uppercase tracking-wider transition-colors shadow-sm"
-              >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                </svg>
-                <span>Cómo Llegar en Google Maps</span>
-              </a>
-            </div>
+            <a
+              href={RESTAURANT_INFO.googleMapsDirectionsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex h-12 w-full items-center justify-center gap-2 rounded-sm bg-ink px-4 text-sm font-bold uppercase tracking-wider text-white shadow-sm transition-colors hover:bg-brand-red"
+            >
+              <Icon name="lucide:navigation" class="size-4" aria-hidden="true" />
+              Cómo Llegar en Google Maps
+            </a>
           </div>
         </div>
 
-        <!-- Schedule Card -->
-        <div class="bg-white rounded-[4px] border border-[#D4CBC7] p-6 shadow-sm flex-grow">
-          <h3 class="font-display text-2xl text-[#451400] uppercase mb-4 flex items-center gap-2 border-b border-[#D4CBC7] pb-3">
-            <svg class="w-6 h-6 text-[#C60101]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>Horarios de Servicio</span>
+        <div class="flex-grow rounded-sm border border-hairline bg-white p-5 shadow-sm sm:p-6">
+          <h3 class="mb-3 flex items-center gap-2 border-b border-hairline pb-3 font-display text-[1.75rem] uppercase text-ink">
+            <Icon name="lucide:clock" class="size-6 text-brand-red" aria-hidden="true" />
+            Horarios de Servicio
           </h3>
 
-          <div class="space-y-3 font-body text-xs sm:text-sm">
+          <OpenStatus class="mb-2 text-sm font-bold text-ink" />
+
+          <dl class="divide-y divide-hairline/40 text-sm">
             {RESTAURANT_INFO.schedule.map((item) => (
-              <div class="flex items-center justify-between border-b border-[#D4CBC7]/40 pb-2">
-                <span class="font-bold text-[#451400]">{item.days}</span>
-                <span class="font-semibold text-[#786259]">{item.hours}</span>
+              <div class="flex items-center justify-between gap-4 py-2.5">
+                <dt class="font-bold text-ink">{item.days}</dt>
+                <dd class="text-right font-semibold text-ash">{item.hours}</dd>
               </div>
             ))}
-          </div>
+          </dl>
 
-          <div class="mt-4 p-2.5 bg-[#FCF9EC] rounded-[4px] border border-[#D4CBC7] text-[11px] text-[#786259] flex items-start gap-1.5">
-            <Icon name="material-symbols:lightbulb-outline-rounded" class="w-4 h-4 flex-shrink-0 mt-0.5" aria-hidden="true" />
-            <span><strong>Nota para fines de semana:</strong> Los sábados y domingos contamos con nuestra tradicional <em>Limonada de Panela Campesina</em>.</span>
-          </div>
+          <p class="mt-4 flex items-start gap-2 rounded-sm border border-hairline bg-cream p-3 text-sm text-ash">
+            <Icon name="lucide:lightbulb" class="mt-0.5 size-4 shrink-0 text-ink" aria-hidden="true" />
+            <span>
+              <strong class="text-ink">Nota para fines de semana:</strong> Los sábados y domingos contamos con nuestra
+              tradicional <em>Limonada de Panela Campesina</em>.
+            </span>
+          </p>
         </div>
       </div>
 
-      <!-- Right Column: Interactive Map Frame -->
       <div class="lg:col-span-7">
-        <div class="w-full h-full min-h-[380px] bg-white rounded-[4px] border border-[#D4CBC7] overflow-hidden shadow-sm flex flex-col">
-          <div class="bg-[#F4EFE0] px-4 py-2 border-b border-[#D4CBC7] flex items-center justify-between">
-            <span class="font-display text-sm uppercase tracking-wider text-[#451400]">
-              Mapa Satelital · La Plata, Huila
-            </span>
-            <span class="text-[11px] font-bold text-[#786259]">
-              Cra. 4 #6-64
-            </span>
+        <div class="flex h-full min-h-[320px] flex-col overflow-hidden rounded-sm border border-hairline bg-white shadow-sm">
+          <div class="flex items-center justify-between gap-3 border-b border-hairline bg-cream-muted px-4 py-2.5">
+            <span class="text-xs font-extrabold uppercase tracking-wider text-ink">Mapa · La Plata, Huila</span>
+            <span class="text-xs font-bold text-ash">{RESTAURANT_INFO.address}</span>
           </div>
-
-          <div class="relative flex-grow w-full min-h-[340px]">
-            <iframe 
-              src={RESTAURANT_INFO.googleMapsEmbedUrl} 
-              class="w-full h-full absolute inset-0 border-0"
-              allowfullscreen="" 
-              loading="lazy" 
-              referrerpolicy="no-referrer-when-downgrade"
-              title="Ubicación de La Brasa Criolla en Carrera 4 # 6-64, La Plata, Huila, Colombia"
-            ></iframe>
+          <div class="relative min-h-[280px] flex-grow">
+            <button
+              type="button"
+              data-map-load={RESTAURANT_INFO.googleMapsEmbedUrl}
+              class="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-cream-muted p-6 text-center text-ink transition-colors hover:bg-hairline/40"
+            >
+              <Icon name="lucide:map-pin" class="size-9 text-brand-red" aria-hidden="true" />
+              <span class="font-display text-[1.75rem] uppercase tracking-wide">Ver mapa interactivo</span>
+              <span class="text-sm text-ash">Toca para cargar Google Maps</span>
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  // The Google Maps embed weighs far more than the rest of the page, so phones only load it on request.
+  document.querySelectorAll<HTMLButtonElement>('[data-map-load]').forEach((button) => {
+    const loadMap = () => {
+      const iframe = document.createElement('iframe');
+      iframe.src = button.dataset.mapLoad ?? '';
+      iframe.title = 'Ubicación de La Brasa Criolla en Carrera 4 # 6-64, La Plata, Huila, Colombia';
+      iframe.className = 'absolute inset-0 size-full border-0';
+      iframe.loading = 'lazy';
+      iframe.referrerPolicy = 'no-referrer-when-downgrade';
+      iframe.allowFullscreen = true;
+      button.replaceWith(iframe);
+    };
+
+    button.addEventListener('click', loadMap);
+    if (window.matchMedia('(min-width: 1024px)').matches) loadMap();
+  });
+</script>
