@@ -1,415 +1,83 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import { CATEGORIES } from '../data/menu';
 import { RESTAURANT_INFO } from '../data/restaurant-info';
-import { buildWhatsAppLink, formatCOP } from '../lib/format';
+import { buildWhatsAppLink } from '../lib/format';
 
-import polloImg from '../assets/dishes/pollo-entero-asado.jpg';
-import picadaImg from '../assets/dishes/picada-mixta.jpg';
-import churrascoImg from '../assets/dishes/churrasco.jpg';
-
-// Mensaje directo para pedidos desde la página de error 404
-const wa404Url = buildWhatsAppLink(
-  RESTAURANT_INFO.whatsapp,
-  "¡Hola La Brasa Criolla! Me perdí en su página web pero se me antojó su asado. ¿Qué tienen disponible hoy para pedir?"
-);
-
-// Selección de 3 platos estrella para rescatar la conversión del usuario
-const recommendedDishes = [
-  {
-    name: "Pollo Entero Asado al Carbón",
-    category: "Pollo al Carbón",
-    price: 34000,
-    badge: "Insignia de la Casa",
-    image: polloImg,
-    description: "Marinado 24 horas y dorado lentamente sobre leña y carbón.",
-    href: "/carta"
-  },
-  {
-    name: "Picada Mixta Especial",
-    category: "Carnes a la Brasa",
-    price: 61000,
-    badge: "Para Compartir",
-    image: picadaImg,
-    description: "Res, cerdo, pollo, chorizo campesino, patacones y papas.",
-    href: "/carta"
-  },
-  {
-    name: "Churrasco a la Brasa",
-    category: "Cortes de Res",
-    price: 41000,
-    badge: "Corte Estrella",
-    image: churrascoImg,
-    description: "Corte grueso sellado a fuego vivo con sal parrillera.",
-    href: "/carta"
-  }
-];
-
-const pageTitle = `Error 404: ¡Este pollo voló de la parrilla! — ${RESTAURANT_INFO.name}`;
-const pageDescription = `No pudimos encontrar la receta o página que buscas en La Brasa Criolla. Descubre nuestra carta completa de asados al carbón en La Plata, Huila.`;
+const whatsappUrl = buildWhatsAppLink(RESTAURANT_INFO.whatsapp, RESTAURANT_INFO.whatsappDefaultMessage);
 ---
 
-<Layout title={pageTitle} description={pageDescription}>
-  <div class="relative overflow-hidden bg-[#FCF9EC] min-h-[80vh] flex flex-col justify-center py-12 lg:py-20">
-    
-    <!-- Efecto ambiental de fondo: Brasas y calor del asador -->
-    <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
-      <!-- Resplandor central de brasas incandescentes -->
-      <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[550px] lg:w-[750px] h-[340px] sm:h-[450px] rounded-full bg-gradient-to-br from-[#FDDC32]/25 via-[#C60101]/20 to-transparent blur-3xl opacity-70 animate-pulse-warm"></div>
-      
-      <!-- Partículas de brasa flotantes animadas -->
-      <span class="ember-spark ember-1"></span>
-      <span class="ember-spark ember-2"></span>
-      <span class="ember-spark ember-3"></span>
-      <span class="ember-spark ember-4"></span>
-      <span class="ember-spark ember-5"></span>
+<Layout
+  variant="carta"
+  noindex
+  title={`Página no encontrada | ${RESTAURANT_INFO.name}`}
+  description={`La página que buscas no existe. Consulta la carta y los horarios de ${RESTAURANT_INFO.name} en La Plata, Huila.`}
+>
+  <div class="mx-auto max-w-3xl px-4 pb-16 pt-10 sm:pt-16">
+    <p class="text-xs font-extrabold uppercase tracking-widest text-brand-red">Error 404</p>
+    <h1 class="mt-1 font-display text-[2.75rem] uppercase leading-none tracking-wide text-ink">Esta página no existe</h1>
+    <p class="mt-3 max-w-xl text-base text-ash">
+      Puede que el enlace esté mal escrito o que la página ya no exista. La carta y los horarios siguen aquí.
+    </p>
 
-      <!-- Patrón sutil de cuadrícula de asador (Grill Texture) -->
-      <div class="absolute inset-0 opacity-[0.035] bg-[radial-gradient(#451400_1.5px,transparent_1.5px)] [background-size:24px_24px]"></div>
+    <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+      <a
+        href="/carta"
+        class="inline-flex h-13 w-full items-center justify-center gap-2 rounded-sm border border-brand-red-dark bg-brand-red px-8 font-display text-xl uppercase tracking-wider text-white transition-colors hover:bg-brand-red-dark sm:w-auto"
+      >
+        Ver la carta
+        <Icon name="lucide:arrow-right" class="size-5" aria-hidden="true" />
+      </a>
+      <a
+        href="/"
+        class="inline-flex h-13 w-full items-center justify-center gap-2 rounded-sm border border-ink px-8 font-display text-xl uppercase tracking-wider text-ink transition-colors hover:bg-ink hover:text-white sm:w-auto"
+      >
+        Ir al inicio
+      </a>
     </div>
 
-    <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      
-      <!-- Badge de Estado Gastronómico -->
-      <div class="inline-flex items-center gap-2 bg-[#F4EFE0] border border-[#D4CBC7] px-4 py-1.5 rounded-[4px] shadow-xs mb-6">
-        <span class="w-2.5 h-2.5 rounded-full bg-[#C60101] animate-ping"></span>
-        <span class="font-body text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#451400]">
-          Error 404 · Fuego Vivo, Pero Mesa Extraviada
-        </span>
-      </div>
-
-      <!-- FOCAL PIECE: Gráfico 404 integrado con Ilustración de Parrilla al Carbón -->
-      <div class="relative inline-flex items-center justify-center my-2 sm:my-4 select-none">
-        
-        <!-- Número 4 Izquierdo -->
-        <span class="font-display text-8xl sm:text-[10rem] md:text-[12rem] lg:text-[14rem] font-normal leading-none tracking-tighter text-[#451400] drop-shadow-sm">
-          4
-        </span>
-
-        <!-- El "0": Ilustración viva de una Parrilla con Carbón Ardiente & Humo Flotante -->
-        <div class="relative mx-1 sm:mx-3 w-24 h-24 sm:w-36 sm:h-36 md:w-44 md:h-44 lg:w-52 lg:h-52 flex items-center justify-center">
-          
-          <!-- Resplandor circular del fogón -->
-          <div class="absolute inset-0 rounded-full bg-gradient-to-t from-[#C60101] via-[#B6370D] to-[#FDDC32] opacity-90 blur-[1px] shadow-[0_0_35px_rgba(198,1,1,0.5)] animate-flicker-flame"></div>
-          
-          <!-- Rejilla de asador / Parrilla circular en carbón tostado -->
-          <div class="relative w-full h-full rounded-full border-4 sm:border-[6px] border-[#451400] bg-[#451400]/85 p-2 flex items-center justify-center overflow-hidden shadow-inner">
-            
-            <!-- Líneas de la parrilla de hierro fundido -->
-            <div class="absolute inset-0 opacity-40 bg-[repeating-linear-gradient(45deg,#FDDC32_0,#FDDC32_2px,transparent_0,transparent_14px)]"></div>
-            <div class="absolute inset-0 opacity-25 bg-[repeating-linear-gradient(-45deg,#FCF9EC_0,#FCF9EC_1.5px,transparent_0,transparent_14px)]"></div>
-
-            <!-- Pollo / Presa dorada asándose con humo animado -->
-            <div class="relative z-10 flex flex-col items-center justify-center animate-float-smoke">
-              <!-- Humo que sale de la presa -->
-              <div class="smoke-wisp w-1.5 h-6 bg-white/40 rounded-full blur-[1px] mb-1"></div>
-              
-              <!-- Ícono de Muslo de Pollo al Carbón en Oro Vivo -->
-              <svg class="w-10 h-10 sm:w-16 sm:h-16 md:w-20 md:h-20 text-[#FDDC32] filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.6)] transform -rotate-12 transition-transform duration-300 hover:rotate-0" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z" class="opacity-0"/>
-                <!-- Silhouette muslo de pollo asado crujiente -->
-                <path d="M17.8 2.8c-2.4-.6-5 0-6.8 1.6-2.1 1.9-2.9 4.8-2.2 7.5L5.4 15.3c-.6-.2-1.3-.2-1.9.1-.8.4-1.3 1.2-1.4 2-.1.9.3 1.8 1 2.4.6.6 1.5 1 2.4 1 .9-.1 1.7-.5 2.1-1.3.3-.6.4-1.3.2-1.9l3.4-3.4c2.7.7 5.6-.1 7.5-2.2 1.6-1.8 2.2-4.4 1.6-6.8-.2-.8-.7-1.7-1.4-2.3-.3-.1-.7-.1-1-.1zm-1.1 2.3c1.5 1.5 1.7 3.9.5 5.6-.4.5-1 .9-1.6 1.1l-1.9-1.9c.3-.6.6-1.3.6-2.1 0-.3-.1-.6-.2-.8-.3-.6-.9-1-1.6-1.1-.3 0-.6 0-.8.2-.8 0-1.5.3-2.1.6l-1.9-1.9c.2-.6.6-1.2 1.1-1.6 1.8-1.2 4.2-1 5.7.5l2.2 1.4z"/>
-              </svg>
-
-              <span class="text-[9px] sm:text-[11px] font-extrabold uppercase tracking-widest text-[#FCF9EC] bg-[#C60101] px-1.5 py-0.5 rounded-[2px] mt-1 shadow-xs border border-[#FDDC32]/40">
-                Al Carbón
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Número 4 Derecho -->
-        <span class="font-display text-8xl sm:text-[10rem] md:text-[12rem] lg:text-[14rem] font-normal leading-none tracking-tighter text-[#451400] drop-shadow-sm">
-          4
-        </span>
-      </div>
-
-      <!-- Título de alto impacto en Bebas Neue -->
-      <h1 class="font-display text-4xl sm:text-6xl lg:text-7xl font-normal tracking-wide text-[#451400] uppercase leading-[0.98] mb-4 max-w-3xl mx-auto text-balance">
-        ¡Ups! Este Pollo <span class="text-[#C60101]">Voló de la Parrilla</span>
-      </h1>
-
-      <!-- Copy persuasivo y cálido en Nunito adaptado al asadero -->
-      <p class="font-body text-base sm:text-lg lg:text-xl text-[#786259] font-normal max-w-2xl mx-auto mb-8 leading-relaxed text-pretty">
-        Buscamos por todos los fogones y cuartos fríos, pero la página que pides <strong class="text-[#451400] font-bold">se nos quemó en las brasas</strong> o nunca existió en nuestro recetario. No te vayas con el apetito abierto: el carbón sigue encendido.
-      </p>
-
-      <!-- Botones de Acción Inmediata (Estándar Chipotle: 4px radius, alto contraste) -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 max-w-lg mx-auto mb-14">
-        
-        <!-- CTA Principal: Regreso al Inicio -->
-        <a 
-          href="/" 
-          id="btn-404-home"
-          class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-[#451400] hover:bg-[#6B321B] text-[#FCF9EC] hover:text-white px-7 h-12 rounded-[4px] font-display text-xl tracking-wider uppercase transition-all duration-200 shadow-md active:scale-98 border border-[#451400] group"
-        >
-          <svg class="w-5 h-5 text-[#FDDC32] transition-transform duration-200 group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-          </svg>
-          <span>Volver al Inicio</span>
-        </a>
-
-        <!-- CTA Secundario: Ir al Menú Completo -->
-        <a 
-          href="/#menu" 
-          id="btn-404-menu"
-          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#C60101] hover:bg-[#8F0000] text-white px-7 h-12 rounded-[4px] font-display text-xl tracking-wider uppercase transition-all duration-200 shadow-md active:scale-98 border border-[#8F0000]"
-        >
-          <svg class="w-5 h-5 text-[#FDDC32]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-          </svg>
-          <span>Ver la Carta</span>
-        </a>
-
-        <!-- CTA Terciario: Pedido Directo por WhatsApp -->
-        <a 
-          href={wa404Url}
-          target="_blank"
-          rel="noopener noreferrer"
-          id="btn-404-whatsapp"
-          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#F4EFE0] hover:bg-white text-[#451400] hover:text-[#027D25] px-6 h-12 rounded-[4px] font-body text-sm font-extrabold tracking-wide uppercase transition-all duration-200 border border-[#D4CBC7] hover:border-[#027D25] shadow-xs active:scale-98"
-        >
-          <svg class="w-4 h-4 fill-[#027D25]" viewBox="0 0 24 24">
-            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-          </svg>
-          <span>Pedir a Domicilio</span>
-        </a>
-
-      </div>
-
-      <!-- SECCIÓN DE RESCATE: Sugerencias Crujientes del Asador -->
-      <div class="mt-8 pt-10 border-t border-[#D4CBC7]/60 text-left">
-        
-        <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-6 gap-2">
-          <div>
-            <span class="text-xs font-extrabold uppercase tracking-widest text-[#B68207]">
-              No te quedes con las ganas
-            </span>
-            <h2 class="font-display text-2xl sm:text-3xl text-[#451400] uppercase tracking-wide">
-              Especialidades que sí están recién saliditas del carbón:
-            </h2>
-          </div>
-
-          <a 
-            href="/#menu" 
-            class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#C60101] hover:text-[#8F0000] inline-flex items-center gap-1 group"
-          >
-            <span>Ver menú de 40+ platos</span>
-            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
-            </svg>
-          </a>
-        </div>
-
-        <!-- Tarjetas de Platos Recomendados (Chipotle 4px geometry) -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {recommendedDishes.map((dish) => (
-            <a 
-              href={dish.href}
-              class="group flex flex-col bg-white rounded-[4px] border border-[#D4CBC7] hover:border-[#451400] transition-all duration-200 overflow-hidden shadow-xs hover:shadow-md"
+    <section aria-labelledby="atajos-title" class="mt-12 border-t border-hairline pt-6">
+      <h2 id="atajos-title" class="text-xs font-extrabold uppercase tracking-widest text-ash">Ir directo a la carta</h2>
+      <ul class="mt-3 flex flex-wrap gap-2">
+        {CATEGORIES.map((category) => (
+          <li>
+            <a
+              href={`/carta#cat-${category.id}`}
+              class="inline-flex h-11 items-center gap-1.5 rounded-sm border border-hairline bg-white px-3.5 text-sm font-bold text-ink transition-colors hover:border-ink"
             >
-              <!-- Imagen del Plato -->
-              <div class="relative aspect-[16/10] w-full overflow-hidden bg-[#F4EFE0]">
-                <Image 
-                  src={dish.image} 
-                  alt={dish.name}
-                  class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
-                />
-                <div class="absolute top-2.5 right-2.5">
-                  <span class="bg-[#451400] text-[#FDDC32] text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-[4px] tracking-wider border border-[#FDDC32]/30">
-                    {dish.badge}
-                  </span>
-                </div>
-              </div>
-
-              <!-- Detalles del Plato -->
-              <div class="p-4 flex flex-col flex-grow justify-between bg-white">
-                <div>
-                  <span class="text-[11px] font-extrabold uppercase tracking-wider text-[#786259]">
-                    {dish.category}
-                  </span>
-                  <h3 class="font-display text-xl text-[#451400] uppercase tracking-wide group-hover:text-[#C60101] transition-colors mt-0.5 line-clamp-1">
-                    {dish.name}
-                  </h3>
-                  <p class="font-body text-xs text-[#786259] mt-1 line-clamp-2">
-                    {dish.description}
-                  </p>
-                </div>
-
-                <div class="mt-4 pt-3 border-t border-[#D4CBC7]/40 flex items-center justify-between">
-                  <span class="font-body font-extrabold text-base text-[#451400]">
-                    {formatCOP(dish.price)}
-                  </span>
-                  <span class="inline-flex items-center gap-1 text-xs font-extrabold uppercase tracking-wider text-[#C60101] group-hover:underline">
-                    <span>Pedir</span>
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                    </svg>
-                  </span>
-                </div>
-              </div>
+              <Icon name={category.icon} class="size-4" aria-hidden="true" />
+              {category.shortName}
             </a>
-          ))}
-        </div>
+          </li>
+        ))}
+      </ul>
+    </section>
 
-        <!-- Atajos directos a las categorías del menú -->
-        <div class="mt-8 flex flex-wrap items-center justify-center gap-2 pt-4">
-          <span class="text-xs font-bold uppercase tracking-wider text-[#786259] mr-2">
-            Explora rápido:
-          </span>
-          <a href="/#menu" class="text-xs font-bold uppercase tracking-wider bg-[#F4EFE0] hover:bg-[#451400] text-[#451400] hover:text-white px-3 py-1.5 rounded-[4px] border border-[#D4CBC7] transition-colors">
-            🥩 Carnes a la Brasa
-          </a>
-          <a href="/#menu" class="text-xs font-bold uppercase tracking-wider bg-[#F4EFE0] hover:bg-[#451400] text-[#451400] hover:text-white px-3 py-1.5 rounded-[4px] border border-[#D4CBC7] transition-colors">
-            🍗 Pollo Asado y Broaster
-          </a>
-          <a href="/#menu" class="text-xs font-bold uppercase tracking-wider bg-[#F4EFE0] hover:bg-[#451400] text-[#451400] hover:text-white px-3 py-1.5 rounded-[4px] border border-[#D4CBC7] transition-colors">
-            🐟 Pescados del Río
-          </a>
-          <a href="/#contacto" class="text-xs font-bold uppercase tracking-wider bg-[#F4EFE0] hover:bg-[#451400] text-[#451400] hover:text-white px-3 py-1.5 rounded-[4px] border border-[#D4CBC7] transition-colors">
-            📍 Horarios y Dirección
-          </a>
-        </div>
-
-      </div>
-
+    <div class="mt-10 text-base text-ash">
+      <p>¿Quieres encargar para recoger?</p>
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex min-h-11 items-center gap-1.5 font-bold text-ink underline underline-offset-4"
+      >
+        <Icon name="simple-icons:whatsapp" class="size-4 text-brand-green" aria-hidden="true" />
+        Escríbenos por WhatsApp
+      </a>
+      <p>Estamos en {RESTAURANT_INFO.address}, {RESTAURANT_INFO.neighborhood}.</p>
     </div>
   </div>
 </Layout>
 
-<style>
-  /* Animación de oscilación flotante suave */
-  @keyframes float-smoke {
-    0%, 100% {
-      transform: translateY(0px) rotate(0deg);
-    }
-    50% {
-      transform: translateY(-6px) rotate(2deg);
-    }
+<script>
+  // A broken NFC/QR link can still carry ?mesa=N; keep it so the menu header shows the table.
+  const table = new URLSearchParams(window.location.search).get('mesa');
+  if (table && /^\d{1,3}$/.test(table)) {
+    document.querySelectorAll<HTMLAnchorElement>('a[href^="/carta"]').forEach((link) => {
+      const url = new URL(link.href);
+      url.searchParams.set('mesa', table);
+      link.href = url.pathname + url.search + url.hash;
+    });
   }
-
-  .animate-float-smoke {
-    animation: float-smoke 3.8s ease-in-out infinite;
-  }
-
-  /* Animación del parpadeo orgánico del fuego y brasa */
-  @keyframes flicker-flame {
-    0%, 100% {
-      opacity: 0.92;
-      transform: scale(1);
-    }
-    25% {
-      opacity: 0.8;
-      transform: scale(0.97);
-    }
-    50% {
-      opacity: 1;
-      transform: scale(1.03);
-    }
-    75% {
-      opacity: 0.86;
-      transform: scale(0.99);
-    }
-  }
-
-  .animate-flicker-flame {
-    animation: flicker-flame 2.2s infinite ease-in-out;
-  }
-
-  /* Resplandor cálido de fondo */
-  @keyframes pulse-warm {
-    0%, 100% {
-      opacity: 0.65;
-      transform: translate(-50%, -50%) scale(1);
-    }
-    50% {
-      opacity: 0.85;
-      transform: translate(-50%, -50%) scale(1.08);
-    }
-  }
-
-  .animate-pulse-warm {
-    animation: pulse-warm 4.5s infinite ease-in-out;
-  }
-
-  /* Humo ascendente sutil */
-  .smoke-wisp {
-    animation: smoke-rise 2.5s infinite ease-out;
-  }
-
-  @keyframes smoke-rise {
-    0% {
-      opacity: 0.5;
-      transform: translateY(0) scaleX(1);
-    }
-    50% {
-      opacity: 0.8;
-      transform: translateY(-8px) scaleX(1.4);
-    }
-    100% {
-      opacity: 0;
-      transform: translateY(-16px) scaleX(2);
-    }
-  }
-
-  /* Chispas de carbón / Embers que ascienden suavemente */
-  .ember-spark {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: #FDDC32;
-    box-shadow: 0 0 8px #C60101, 0 0 12px #FDDC32;
-    pointer-events: none;
-    opacity: 0;
-  }
-
-  .ember-1 {
-    top: 45%;
-    left: 28%;
-    animation: rise-spark 5s infinite ease-in 0.5s;
-  }
-
-  .ember-2 {
-    top: 55%;
-    left: 72%;
-    animation: rise-spark 4.2s infinite ease-in 1.2s;
-  }
-
-  .ember-3 {
-    top: 50%;
-    left: 42%;
-    animation: rise-spark 6s infinite ease-in 2s;
-  }
-
-  .ember-4 {
-    top: 60%;
-    left: 58%;
-    animation: rise-spark 4.8s infinite ease-in 0.2s;
-  }
-
-  .ember-5 {
-    top: 38%;
-    left: 65%;
-    animation: rise-spark 5.5s infinite ease-in 2.8s;
-  }
-
-  @keyframes rise-spark {
-    0% {
-      opacity: 0;
-      transform: translateY(0) scale(0.5);
-    }
-    20% {
-      opacity: 0.9;
-      transform: translateY(-20px) scale(1);
-    }
-    70% {
-      opacity: 0.6;
-      transform: translateY(-80px) translateX(8px) scale(0.8);
-    }
-    100% {
-      opacity: 0;
-      transform: translateY(-140px) translateX(-6px) scale(0.2);
-    }
-  }
-</style>
+</script>

@@ -13,6 +13,7 @@ interface Props {
   description?: string;
   canonicalPath?: string;
   variant?: 'site' | 'carta';
+  noindex?: boolean;
 }
 
 const {
@@ -20,6 +21,7 @@ const {
   description = RESTAURANT_INFO.description,
   canonicalPath = '/',
   variant = 'site',
+  noindex = false,
 } = Astro.props;
 
 const canonicalUrl = `${SITE_URL}${canonicalPath}`;
@@ -88,7 +90,7 @@ const structuredData = {
     <meta name="generator" content={Astro.generator} />
 
     <title>{title}</title>
-    <link rel="canonical" href={canonicalUrl} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonicalUrl} />}
     <meta name="description" content={description} />
     <meta
       name="keywords"
