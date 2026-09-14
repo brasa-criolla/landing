@@ -1,7 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
 import { RESTAURANT_INFO } from '../data/restaurant-info';
 import { buildWhatsAppLink, formatCOP } from '../lib/format';
+
+import polloImg from '../assets/dishes/pollo-entero-asado.jpg';
+import picadaImg from '../assets/dishes/picada-mixta.jpg';
+import churrascoImg from '../assets/dishes/churrasco.jpg';
 
 // Mensaje directo para pedidos desde la página de error 404
 const wa404Url = buildWhatsAppLink(
@@ -14,29 +19,29 @@ const recommendedDishes = [
   {
     name: "Pollo Entero Asado al Carbón",
     category: "Pollo al Carbón",
-    price: 32000,
+    price: 34000,
     badge: "Insignia de la Casa",
-    image: "/images/dishes/pollo-entero-asado.jpg",
+    image: polloImg,
     description: "Marinado 24 horas y dorado lentamente sobre leña y carbón.",
-    href: "/#menu"
+    href: "/carta"
   },
   {
     name: "Picada Mixta Especial",
     category: "Carnes a la Brasa",
-    price: 58000,
+    price: 61000,
     badge: "Para Compartir",
-    image: "/images/dishes/picada-mixta.jpg",
+    image: picadaImg,
     description: "Res, cerdo, pollo, chorizo campesino, patacones y papas.",
-    href: "/#menu"
+    href: "/carta"
   },
   {
     name: "Churrasco a la Brasa",
     category: "Cortes de Res",
-    price: 38000,
+    price: 41000,
     badge: "Corte Estrella",
-    image: "/images/dishes/churrasco.jpg",
+    image: churrascoImg,
     description: "Corte grueso sellado a fuego vivo con sal parrillera.",
-    href: "/#menu"
+    href: "/carta"
   }
 ];
 
@@ -205,10 +210,9 @@ const pageDescription = `No pudimos encontrar la receta o página que buscas en 
             >
               <!-- Imagen del Plato -->
               <div class="relative aspect-[16/10] w-full overflow-hidden bg-[#F4EFE0]">
-                <img 
+                <Image 
                   src={dish.image} 
                   alt={dish.name}
-                  loading="lazy"
                   class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
                 />
                 <div class="absolute top-2.5 right-2.5">
