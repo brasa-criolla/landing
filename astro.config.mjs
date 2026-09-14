@@ -28,6 +28,14 @@ export default defineConfig({
     },
   ],
   vite: {
-    plugins: [tailwindcss()]
-  }
+    plugins: [tailwindcss()],
+    server: {
+      fs: {
+        strict: true,
+      },
+      watch: {
+        ignored: ['C:\\DumpStack.log.tmp', '**/DumpStack.log.tmp'],
+      },
+    },
+  },
 });
